@@ -7,7 +7,8 @@ jupyter: python3
 ---
 
 ## Week 1
-For the first week I focused on understanding the package provided and using it effectively. To test this I created a dataset, trained a model on it, tested the model then did some analysis.
+
+For the first week I focused on **understanding** the package provided and using it effectively. To test this I created a dataset, trained a model on it, tested the model then did some analysis.
 
 To generate data, the program sampler.py is used and for the set generated here, a desnity of 0.1 is used. This creates by default the evenly indexed tumbling rates 0.016, 0.034, 0.073, 0.157 and 0.340 as shown in @fig-initialData. To generate the odd set requires another run of the program with the added --odd suffix added. A csv file is also created to keep track of the metadata of these files. The values used are chosen from a exponential scale meaning there is a preference to lower tumbling rates in the dataset. 
 
