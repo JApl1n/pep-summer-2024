@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="week-1" class="level2">
 <h2 class="anchored" data-anchor-id="week-1">Week 1</h2>
-<p>For the first week I focused on understanding the package provided and using it effectively. To test this I created a dataset, trained a model on it, tested the model then did some analysis.</p>
+<p>For the first week I focused on <strong>understanding</strong> the package provided and using it effectively. To test this I created a dataset, trained a model on it, tested the model then did some analysis.</p>
 <p>To generate data, the program sampler.py is used and for the set generated here, a desnity of 0.1 is used. This creates by default the evenly indexed tumbling rates 0.016, 0.034, 0.073, 0.157 and 0.340 as shown in <a href="#fig-initialData" class="quarto-xref">Figure&nbsp;1</a>. To generate the odd set requires another run of the program with the added –odd suffix added. A csv file is also created to keep track of the metadata of these files. The values used are chosen from a exponential scale meaning there is a preference to lower tumbling rates in the dataset.</p>
 <div id="fig-initialData" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -116,7 +116,7 @@ Figure&nbsp;1: Initial dataset
 <p>The neural network layers used by the previous authors is presumed to have been refine dover time for optimal results for their findings and can be left as is for now. It is found in the cp_network.py and cp_network_multi.py files. I used it to generate a model on firstly the even dataset then once the odd dataset had been generated as wellm, both of them for the second model. Due to the tumbling rates being generated logarithmically, the even dataset is generally made up of lower tumbling rates and when tested will have to interpolate the odd regions. As they can take a while to train and depend highly on the dat generated, their weights are saved for later use including here.</p>
 <section id="layers-of-models-used" class="level4">
 <h4 class="anchored" data-anchor-id="layers-of-models-used">Layers Of Models Used</h4>
-<div id="2670454e" class="cell" data-execution_count="1">
+<div id="bd6f2f44" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
@@ -257,7 +257,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </figure>
 </div>
 <p>Before starting the next part of training models on differing amounts of data, its worth looking at the code for generating the datasets in sampler.py. The important parts here are (altered here but gives useful information):</p>
-<div id="7e732875" class="cell" data-execution_count="2">
+<div id="441da311" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumble <span class="op">=</span> <span class="fl">0.5</span>  <span class="co">#example tumbling rate</span></span>
@@ -272,7 +272,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </details>
 </div>
 <p>So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it’s tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and comapre their performances. Training the models is typically a long process as is testing.</p>
-<div id="e594e869" class="cell" data-execution_count="3">
+<div id="f38c2bfc" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
