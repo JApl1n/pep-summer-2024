@@ -207,3 +207,39 @@ And now for the comparisons of the architecture for larger amounts of data.
 Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
 :::
 
+Due to the timing issues, we continue with the plan of comapring kernals. For a simple analysis we look at the first layer of each model and output all of it's kernals and compare for the different models based on differing sizes of dataset.
+
+::: {#fig-kernalAnalysisInitial layout-ncol=3}
+
+![250 snapshots trained model, kernal [0,0]](figures/week3/250Filter0Kernal0.png){#fig-week3data250kernal0}
+
+![250 snapshots trained model, kernal [0,1]](figures/week3/250Filter0Kernal1.png){#fig-week3data250kernal1}
+
+![250 snapshots trained model, kernal [0,2]](figures/week3/250Filter0Kernal2.png){#fig-week3data250kernal2}
+
+![500 snapshots trained model, kernal [0,0]](figures/week3/500Filter0Kernal0.png){#fig-week3data500kernal0}
+
+![500 snapshots trained model, kernal [0,1]](figures/week3/500Filter0Kernal1.png){#fig-week3data500kernal1}
+
+![500 snapshots trained model, kernal [0,2]](figures/week3/500Filter0Kernal2.png){#fig-week3data500kernal2}
+
+![750 snapshots trained model, kernal [0,0]](figures/week3/750Filter0Kernal0.png){#fig-week3data750kernal0}
+
+![750 snapshots trained model, kernal [0,1]](figures/week3/750Filter0Kernal1.png){#fig-week3data750kernal1}
+
+![750 snapshots trained model, kernal [0,2]](figures/week3/750Filter0Kernal2.png){#fig-week3data750kernal2}
+
+![1000 snapshots trained model, kernal [0,0]](figures/week3/1000Filter0Kernal0.png){#fig-week3data1000kernal0}
+
+![1000 snapshots trained model, kernal [0,1]](figures/week3/1000Filter0Kernal1.png){#fig-week3data1000kernal1}
+
+![1000 snapshots trained model, kernal [0,2]](figures/week3/1000Filter0Kernal2.png){#fig-week3data1000kernal2}
+
+![1250 snapshots trained model, kernal [0,0]](figures/week3/1250Filter0Kernal0.png){#fig-week3data1250kernal0}
+
+![1250 snapshots trained model, kernal [0,1]](figures/week3/1250Filter0Kernal1.png){#fig-week3data1250kernal1}
+
+![1250 snapshots trained model, kernal [0,2]](figures/week3/1250Filter0Kernal2.png){#fig-week3data1250kernal2}
+
+Comparison of the first layer of kernals for each model trained on different amounts of data.
+:::
