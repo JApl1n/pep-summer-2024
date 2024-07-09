@@ -23,8 +23,8 @@ import tensorflow as tf
 
 name1 = "0.1_even"
 name2 = "0.1_full"
-model1 = tf.keras.models.load_model(f'../models/{name1}.keras')
-model2 = tf.keras.models.load_model(f'../models/{name2}.keras')
+model1 = tf.keras.models.load_model(f'../models/week1/{name1}.keras')
+model2 = tf.keras.models.load_model(f'../models/week1/{name2}.keras')
 model1.summary()
 
 ```
@@ -45,7 +45,7 @@ The plan going forward is to compare specifically two aprts of the model: extrap
 
 Model 1 is trained on the first half of the data (0.016. 0.023, 0.034, 0.05 & 0.073) and model 2 on the second half (0.107, 0.157, 0.231, 0.34, 0.5). They are both then tested on the whole data to provide the following graphs. @fig-week2Violin shows that spread of predictions for model 1 is significantly smaller than model 2 for all tumbling rates, even very high ones and excels as predicting vlaues on the test data for low tumbling rates but predictably loses this precision at higher ones. Model 2 still has a relatively low spread of predictions for low data and a very high spread even for data it is largely trained on. This could be due to the logarithmic scale of tumbling rates used meaning it actually is trying to fit over a larger range of values than model 1 so has less accuracy.
 
-@fig-week2Line largely supports this andshows model 2 seems to have an optimal prediction actually outside the its training data at 0.073. 
+@fig-week2Line largely supports this and shows model 2 seems to have an optimal prediction actually outside the its training data at 0.073. 
 
 ![Violin plot of precited tumbling rates vs. true tumbling rate.](figures/week2/modelComaprison1.png){#fig-week2Violin}
 
@@ -88,10 +88,122 @@ df.head()
 
 Here are the resulting graphs.
 
-![Violin plot of precited tumbling rates vs. true tumbling rate for 5 dataset sizes.](figures/week2/modelsComaprisonViolin.png){#fig-week2ViolinMulti}
+::: {#fig-datasetSizeComparison layout-ncol=2}
 
-![Line plot of mean predicted tumbling rate vs. true tumbling rate for 5 dataset sizes.](figures/week2/modelsComaprisonLine.png){#fig-week2LineMulti}
+![Violin plot of precited tumbling rates vs. true tumbling rates.](figures/week2/modelsComaprisonViolin.png){#fig-week2ViolinMulti}
 
-![Scatter plot of all predicted tumbling rates vs. true tumbling rates for 5 dataset sizes.](figures/week2/modelsComaprisonScatter.png){#fig-week2ScatterMulti}
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week2/modelsComaprisonLine.png){#fig-week2LineMulti}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week2/modelsComaprisonScatter.png){#fig-week2ScatterMulti}
+
+Plots comparing 5 models trained on 5 dataset sizes, model 1 being 250 snapshots, 2 500, 3 750, 4 1000 and 5 1250.
+:::
+
 
 The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. @fig-week2LineMulti is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision comapred to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.
+
+## Week 3
+
+After the results of last week some further testing is taken. Firstly we can look at the kernals of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e. extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.
+
+To start on kernal analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernals to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernals in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in @fig-week3Violin250, @fig-week3Line250 and @fig-week3Scatter250. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.
+
+```{python}
+
+# Old Model
+
+def make_net_1(shape):
+    model = Sequential()
+
+    model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same', strides=(3,3), activation='relu', input_shape=shape))
+    model.add(BatchNormalization())
+    model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same'))
+    model.add(BatchNormalization())
+
+    model.add(MaxPooling2D(pool_size=(3, 3)))
+
+    #model.add(AveragePooling2D(pool_size=(2,2), strides=(2,2)))
+
+    model.add(Conv2D(filters=6, kernel_size=(3,3), padding='same'))
+    model.add(BatchNormalization())
+
+    model.add(Conv2D(filters=6, kernel_size=(3,3), padding='same'))
+    model.add(BatchNormalization())
+
+    model.add(MaxPooling2D(pool_size=(3, 3)))
+
+    model.add(Dense(units=128, activation='relu'))
+
+    with options({"layout_optimizer": False}):
+        model.add(Dropout(0.2))
+    model.add(Dense(units=10, activation='softmax'))
+
+    model.add(Flatten())
+    model.add(Dense(units=1, activation='linear'))
+    return model
+
+# New Model
+
+def make_net_2(shape):
+    model = Sequential()
+
+    model.add(Conv2D(filters=3, kernel_size=(3, 3), padding="same", input_shape=shape))
+    model.add(MaxPooling2D(pool_size=(2, 2), padding="same"))
+    model.add(ReLU())
+    model.add(BatchNormalization())
+
+    model.add(Conv2D(filters=4, kernel_size=(5, 5), padding="same"))
+    model.add(MaxPooling2D(pool_size=(2, 2), padding="same"))
+    model.add(ReLU())
+    model.add(BatchNormalization())
+
+    model.add(Conv2D(filters=6, kernel_size=(5, 5), padding="same"))
+    model.add(MaxPooling2D(pool_size=(2, 2), padding="same"))
+    model.add(ReLU())
+    model.add(BatchNormalization())
+
+    model.add(GlobalAveragePooling2D())
+
+    with options({"layout_optimizer": False}):
+        model.add(Dropout(0.1))
+
+    model.add(Dense(units=128, activation="relu"))
+
+    with options({"layout_optimizer": False}):
+        model.add(Dropout(0.1))
+
+    model.add(Dense(units=3, activation="relu"))
+
+    model.add(Flatten())
+    model.add(Dense(units=1, activation="linear"))
+    return model
+```
+
+
+::: {#fig-architectureComparison250 layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rate.](figures/week3/architectureComparisonViolin250.png){#fig-week3Violin250}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rate.](figures/week3/architectureComaprisonLine250.png){#fig-week3Line250}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComaprisonScatter250.png){#fig-week3Scatter250}
+
+Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
+:::
+
+
+
+And now for the comparisons of the architecture for larger amounts of data.
+
+::: {#fig-architectureComparison1250 layout-ncol=2}
+
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComparisonViolin1250.png){#fig-week3Violin1250}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/architectureComaprisonLine1250.png){#fig-week3Line1250}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComaprisonScatter1250.png){#fig-week3Scatter1250}
+
+Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
+:::
+

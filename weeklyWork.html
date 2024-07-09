@@ -116,15 +116,15 @@ Figure&nbsp;1: Initial dataset
 <p>The neural network layers used by the previous authors is presumed to have been refine dover time for optimal results for their findings and can be left as is for now. It is found in the cp_network.py and cp_network_multi.py files. I used it to generate a model on firstly the even dataset then once the odd dataset had been generated as wellm, both of them for the second model. Due to the tumbling rates being generated logarithmically, the even dataset is generally made up of lower tumbling rates and when tested will have to interpolate the odd regions. As they can take a while to train and depend highly on the dat generated, their weights are saved for later use including here.</p>
 <section id="layers-of-models-used" class="level4">
 <h4 class="anchored" data-anchor-id="layers-of-models-used">Layers Of Models Used</h4>
-<div id="bd6f2f44" class="cell" data-execution_count="1">
+<div id="9a78a668" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>name1 <span class="op">=</span> <span class="st">"0.1_even"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>name2 <span class="op">=</span> <span class="st">"0.1_full"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> tf.keras.models.load_model(<span class="ss">f'../models/</span><span class="sc">{</span>name1<span class="sc">}</span><span class="ss">.keras'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> tf.keras.models.load_model(<span class="ss">f'../models/</span><span class="sc">{</span>name2<span class="sc">}</span><span class="ss">.keras'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> tf.keras.models.load_model(<span class="ss">f'../models/week1/</span><span class="sc">{</span>name1<span class="sc">}</span><span class="ss">.keras'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> tf.keras.models.load_model(<span class="ss">f'../models/week1/</span><span class="sc">{</span>name2<span class="sc">}</span><span class="ss">.keras'</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>model1.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
@@ -225,7 +225,7 @@ Figure&nbsp;4: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <h2 class="anchored" data-anchor-id="week-2">Week 2</h2>
 <p>The plan going forward is to compare specifically two aprts of the model: extrapolation and dataset size. Last week shwoed that the model even given a relatively limited range of data can interpolate well, however we could generate data of lower tumbling rates and predict them with higher ones inn the test data and see how much accuracy is lost. This can easily be repeated for the opposite to see if the model is well optimised to extrapolate to lower tumbling rates too.</p>
 <p>Model 1 is trained on the first half of the data (0.016. 0.023, 0.034, 0.05 &amp; 0.073) and model 2 on the second half (0.107, 0.157, 0.231, 0.34, 0.5). They are both then tested on the whole data to provide the following graphs. <a href="#fig-week2Violin" class="quarto-xref">Figure&nbsp;5</a> shows that spread of predictions for model 1 is significantly smaller than model 2 for all tumbling rates, even very high ones and excels as predicting vlaues on the test data for low tumbling rates but predictably loses this precision at higher ones. Model 2 still has a relatively low spread of predictions for low data and a very high spread even for data it is largely trained on. This could be due to the logarithmic scale of tumbling rates used meaning it actually is trying to fit over a larger range of values than model 1 so has less accuracy.</p>
-<p><a href="#fig-week2Line" class="quarto-xref">Figure&nbsp;6</a> largely supports this andshows model 2 seems to have an optimal prediction actually outside the its training data at 0.073.</p>
+<p><a href="#fig-week2Line" class="quarto-xref">Figure&nbsp;6</a> largely supports this and shows model 2 seems to have an optimal prediction actually outside the its training data at 0.073.</p>
 <div id="fig-week2Violin" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-week2Violin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -257,7 +257,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </figure>
 </div>
 <p>Before starting the next part of training models on differing amounts of data, its worth looking at the code for generating the datasets in sampler.py. The important parts here are (altered here but gives useful information):</p>
-<div id="441da311" class="cell" data-execution_count="2">
+<div id="a898466f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumble <span class="op">=</span> <span class="fl">0.5</span>  <span class="co">#example tumbling rate</span></span>
@@ -272,7 +272,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </details>
 </div>
 <p>So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it’s tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and comapre their performances. Training the models is typically a long process as is testing.</p>
-<div id="f38c2bfc" class="cell" data-execution_count="3">
+<div id="30403bf8" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -287,7 +287,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 
 
@@ -337,37 +337,232 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </div>
 </div>
 <p>Here are the resulting graphs.</p>
+<div id="fig-datasetSizeComparison" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-datasetSizeComparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-datasetSizeComparison" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-week2ViolinMulti" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
+<figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week2ViolinMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelsComaprisonViolin.png" class="img-fluid figure-img">
+<img src="figures/week2/modelsComaprisonViolin.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week2ViolinMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Violin plot of precited tumbling rates vs.&nbsp;true tumbling rate for 5 dataset sizes.
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week2ViolinMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Violin plot of precited tumbling rates vs.&nbsp;true tumbling rates.
 </figcaption>
 </figure>
 </div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-datasetSizeComparison" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-week2LineMulti" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
+<figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week2LineMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelsComaprisonLine.png" class="img-fluid figure-img">
+<img src="figures/week2/modelsComaprisonLine.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week2LineMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate for 5 dataset sizes.
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week2LineMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rates.
 </figcaption>
 </figure>
 </div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-datasetSizeComparison" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-week2ScatterMulti" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
+<figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week2ScatterMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelsComaprisonScatter.png" class="img-fluid figure-img">
+<img src="figures/week2/modelsComaprisonScatter.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week2ScatterMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates for 5 dataset sizes.
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week2ScatterMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
 </figcaption>
 </figure>
 </div>
-<p>The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. <a href="#fig-week2LineMulti" class="quarto-xref">Figure&nbsp;9</a> is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision comapred to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.</p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-datasetSizeComparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 being 250 snapshots, 2 500, 3 750, 4 1000 and 5 1250.
+</figcaption>
+</figure>
+</div>
+<p>The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. <a href="#fig-week2LineMulti" class="quarto-xref">Figure&nbsp;8 (b)</a> is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision comapred to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.</p>
+</section>
+<section id="week-3" class="level2">
+<h2 class="anchored" data-anchor-id="week-3">Week 3</h2>
+<p>After the results of last week some further testing is taken. Firstly we can look at the kernals of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e.&nbsp;extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.</p>
+<p>To start on kernal analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernals to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernals in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in <a href="#fig-week3Violin250" class="quarto-xref">Figure&nbsp;9 (a)</a>, <a href="#fig-week3Line250" class="quarto-xref">Figure&nbsp;9 (b)</a> and <a href="#fig-week3Scatter250" class="quarto-xref">Figure&nbsp;9 (c)</a>. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.</p>
+<div id="c3b7d4ee" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Old Model</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_net_1(shape):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>), padding<span class="op">=</span><span class="st">'same'</span>, strides<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>), activation<span class="op">=</span><span class="st">'relu'</span>, input_shape<span class="op">=</span>shape))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>), padding<span class="op">=</span><span class="st">'same'</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D(pool_size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>)))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#model.add(AveragePooling2D(pool_size=(2,2), strides=(2,2)))</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">6</span>, kernel_size<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>), padding<span class="op">=</span><span class="st">'same'</span>))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">6</span>, kernel_size<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>), padding<span class="op">=</span><span class="st">'same'</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D(pool_size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>)))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(units<span class="op">=</span><span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> options({<span class="st">"layout_optimizer"</span>: <span class="va">False</span>}):</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        model.add(Dropout(<span class="fl">0.2</span>))</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(units<span class="op">=</span><span class="dv">10</span>, activation<span class="op">=</span><span class="st">'softmax'</span>))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    model.add(Flatten())</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(units<span class="op">=</span><span class="dv">1</span>, activation<span class="op">=</span><span class="st">'linear'</span>))</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># New Model</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_net_2(shape):</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential()</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>), padding<span class="op">=</span><span class="st">"same"</span>, input_shape<span class="op">=</span>shape))</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D(pool_size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">2</span>), padding<span class="op">=</span><span class="st">"same"</span>))</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    model.add(ReLU())</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">4</span>, kernel_size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), padding<span class="op">=</span><span class="st">"same"</span>))</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D(pool_size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">2</span>), padding<span class="op">=</span><span class="st">"same"</span>))</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    model.add(ReLU())</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    model.add(Conv2D(filters<span class="op">=</span><span class="dv">6</span>, kernel_size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), padding<span class="op">=</span><span class="st">"same"</span>))</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    model.add(MaxPooling2D(pool_size<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">2</span>), padding<span class="op">=</span><span class="st">"same"</span>))</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    model.add(ReLU())</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    model.add(BatchNormalization())</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    model.add(GlobalAveragePooling2D())</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> options({<span class="st">"layout_optimizer"</span>: <span class="va">False</span>}):</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>        model.add(Dropout(<span class="fl">0.1</span>))</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(units<span class="op">=</span><span class="dv">128</span>, activation<span class="op">=</span><span class="st">"relu"</span>))</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> options({<span class="st">"layout_optimizer"</span>: <span class="va">False</span>}):</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        model.add(Dropout(<span class="fl">0.1</span>))</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(units<span class="op">=</span><span class="dv">3</span>, activation<span class="op">=</span><span class="st">"relu"</span>))</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    model.add(Flatten())</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(units<span class="op">=</span><span class="dv">1</span>, activation<span class="op">=</span><span class="st">"linear"</span>))</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="fig-architectureComparison250" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-architectureComparison250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-architectureComparison250" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week3Violin250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3Violin250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/architectureComparisonViolin250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Violin250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rate.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-architectureComparison250" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week3Line250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3Line250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/architectureComaprisonLine250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Line250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-architectureComparison250" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week3Scatter250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3Scatter250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/architectureComaprisonScatter250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Scatter250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-architectureComparison250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
+</figcaption>
+</figure>
+</div>
+<p>And now for the comparisons of the architecture for larger amounts of data.</p>
+<div id="fig-architectureComparison1250" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-architectureComparison1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-architectureComparison1250" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week3Violin1250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3Violin1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/architectureComparisonViolin1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Violin1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-architectureComparison1250" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week3Line1250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3Line1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/architectureComaprisonLine1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Line1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-architectureComparison1250" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week3Scatter1250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3Scatter1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/architectureComaprisonScatter1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Scatter1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-architectureComparison1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
+</figcaption>
+</figure>
+</div>
 </section>
 
 </main>
