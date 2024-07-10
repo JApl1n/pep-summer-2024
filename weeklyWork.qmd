@@ -191,12 +191,11 @@ def make_net_2(shape):
 Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
 :::
 
-
+---
 
 And now for the comparisons of the architecture for larger amounts of data.
 
 ::: {#fig-architectureComparison1250 layout-ncol=2}
-
 
 ![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComparisonViolin1250.png){#fig-week3Violin1250}
 
@@ -206,6 +205,8 @@ And now for the comparisons of the architecture for larger amounts of data.
 
 Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
 :::
+
+---
 
 Due to the timing issues, we continue with the plan of comapring kernals. For a simple analysis we look at the first layer of each model and output all of it's kernals and compare for the different models based on differing sizes of dataset.
 
@@ -243,3 +244,52 @@ Due to the timing issues, we continue with the plan of comapring kernals. For a 
 
 Comparison of the first layer of kernals for each model trained on different amounts of data.
 :::
+
+---
+
+Now to compare the models with extrapolation I repeat the method for week 2 but in three overarching steps. One where I remove the first 3 tumbling rates from the data, one where I remove the last three tumbling rates from the data and one where i remove a middle three datasets (0.05, 0.073, 0.107). This is repeated for all datasets as well. This took a while to generate the models but the onyl other important information here is that from this point on the test dataset will now be used in it's entirity instead of just a split. This is because that data is not being used for training so the whole data can be used for validation. This makes testing take a while longer.
+
+---
+
+::: {#fig-datasetComparisonLower layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/dataComparisonLowerViolin.png){#fig-week3ViolinLower}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/dataComparisonLowerLine.png){#fig-week3LineLower}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/dataComparisonLowerScatter.png){#fig-week3ScatterLower}
+
+Plots comparing how the size of a dataset affects the model, model 1 is trained on 250 snapshots, 2 on 500, 3 on 750, 4 on 1000 and 5 on 1250. The models here are all trained on a subset of the tumbling rates, where the largest 3 (0.231, 0.340 and 0.500) are not used in training.
+:::
+
+---
+
+::: {#fig-datasetComparisonUpper layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/dataComparisonUpperViolin.png){#fig-week3ViolinUpper}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/dataComparisonUpperLine.png){#fig-week3LineUpper}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/dataComparisonUpperScatter.png){#fig-week3ScatterUpper}
+
+Plots comparing how the size of a dataset affects the model, model 1 is trained on 250 snapshots, 2 on 500, 3 on 750, 4 on 1000 and 5 on 1250. The models here are all trained on a subset of the tumbling rates, where the lowest 3 (0.016, 0.023 and 0.034) are not used in training.
+:::
+
+---
+
+::: {#fig-datasetComparisonOuter layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/dataComparisonOuterViolin.png){#fig-week3ViolinOuter}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/dataComparisonOuterLine.png){#fig-week3LineOuter}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/dataComparisonOuterScatter.png){#fig-week3ScatterOuter}
+
+Plots comparing how the size of a dataset affects the model, model 1 is trained on 250 snapshots, 2 on 500, 3 on 750, 4 on 1000 and 5 on 1250. The models here are all trained on a subset of the tumbling rates, where the middle 3 (0.05, 0.073, 0.107) are not used in training.
+:::
+
+---
+
+#### Repeated Models
+Here I will run the same simulation of 1000 snapshots with density 0.1 as has been used throughout this study and train a model on each 4 of these repetitions. I can then comapre their performances to compare to previous and future uses to use as a basis of how important the clustering of the simulation is or if the significance of chosen parameters is what gives rise to differences in model performance.
+
