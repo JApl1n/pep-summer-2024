@@ -76,7 +76,7 @@ import pandas as pd
 
 colNames = ["Model Number", "Number of Snapshots", "Time to Train (s)"]
 
-data  = [["1", "250", "75"], ["2", "500","204"], ["3", "750", "314"], ["4", "1000","~400"], ["5", "1250","555"]]
+data  = [["1", "250", "75"], ["2", "500","204"], ["3", "750", "314"], ["4", "1000","420"], ["5", "1250","555"]]
 
 df = pd.DataFrame(columns=colNames, data=data)
 df = df.set_index("Model Number")
@@ -293,3 +293,15 @@ Plots comparing how the size of a dataset affects the model, model 1 is trained 
 #### Repeated Models
 Here I will run the same simulation of 1000 snapshots with density 0.1 as has been used throughout this study and train a model on each 4 of these repetitions. I can then comapre their performances to compare to previous and future uses to use as a basis of how important the clustering of the simulation is or if the significance of chosen parameters is what gives rise to differences in model performance.
 
+::: {#fig-repeatedModel layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/sameParametersViolin.png){#fig-week3RepeatedModelViolin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/sameParametersLine.png){#fig-week3RepeatedModelOuter}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/sameParametersScatter.png){#fig-week3RepeatedModelOuter}
+
+Plots comparing how 4 models based off 4 distinct simulations with the same parameters compare. Any variation can be attributed to how much the randomness of each simulation affects the prediction, including similarities to the test data.
+:::
+
+---
