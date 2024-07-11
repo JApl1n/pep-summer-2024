@@ -116,7 +116,7 @@ Figure&nbsp;1: Initial dataset
 <p>The neural network layers used by the previous authors is presumed to have been refine dover time for optimal results for their findings and can be left as is for now. It is found in the cp_network.py and cp_network_multi.py files. I used it to generate a model on firstly the even dataset then once the odd dataset had been generated as wellm, both of them for the second model. Due to the tumbling rates being generated logarithmically, the even dataset is generally made up of lower tumbling rates and when tested will have to interpolate the odd regions. As they can take a while to train and depend highly on the dat generated, their weights are saved for later use including here.</p>
 <section id="layers-of-models-used" class="level4">
 <h4 class="anchored" data-anchor-id="layers-of-models-used">Layers Of Models Used</h4>
-<div id="ccd86937" class="cell" data-execution_count="1">
+<div id="2a2ef1be" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
@@ -195,7 +195,7 @@ Figure&nbsp;1: Initial dataset
 <img src="figures/week1/comparison1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week1Violin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Violin plot of precited tumbling rates vs.&nbsp;true tumbling rate.
+Figure&nbsp;2: Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rate. Blue model is trained on a dataset made up of the evenly indexed tumbling rates and the orange model from both the evenly and odd tumbling rates.
 </figcaption>
 </figure>
 </div>
@@ -205,7 +205,7 @@ Figure&nbsp;2: Violin plot of precited tumbling rates vs.&nbsp;true tumbling rat
 <img src="figures/week1/comparison2.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week1Line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate.
+Figure&nbsp;3: Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate. Blue model is trained on a dataset made up of the evenly indexed tumbling rates and the orange model from both the evenly and odd tumbling rates.
 </figcaption>
 </figure>
 </div>
@@ -215,7 +215,7 @@ Figure&nbsp;3: Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling 
 <img src="figures/week1/comparison3.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week1Scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+Figure&nbsp;4: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates. Blue model is trained on a dataset made up of the evenly indexed tumbling rates and the orange model from both the evenly and odd tumbling rates.
 </figcaption>
 </figure>
 </div>
@@ -229,35 +229,35 @@ Figure&nbsp;4: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <div id="fig-week2Violin" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-week2Violin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelComaprison1.png" class="img-fluid figure-img">
+<img src="figures/week2/modelComparison1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week2Violin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Violin plot of precited tumbling rates vs.&nbsp;true tumbling rate.
+Figure&nbsp;5: Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rate. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.
 </figcaption>
 </figure>
 </div>
 <div id="fig-week2Line" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-week2Line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelComaprison2.png" class="img-fluid figure-img">
+<img src="figures/week2/modelComparison2.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week2Line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate.
+Figure&nbsp;6: Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.
 </figcaption>
 </figure>
 </div>
 <div id="fig-week2Scatter" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-week2Scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelComaprison3.png" class="img-fluid figure-img">
+<img src="figures/week2/modelComparison3.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week2Scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.
 </figcaption>
 </figure>
 </div>
 <p>Before starting the next part of training models on differing amounts of data, its worth looking at the code for generating the datasets in sampler.py. The important parts here are (altered here but gives useful information):</p>
-<div id="27036e2a" class="cell" data-execution_count="2">
+<div id="2ef9339f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumble <span class="op">=</span> <span class="fl">0.5</span>  <span class="co">#example tumbling rate</span></span>
@@ -271,8 +271,8 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">continue</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it’s tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and comapre their performances. Training the models is typically a long process as is testing.</p>
-<div id="d116ddee" class="cell" data-execution_count="3">
+<p>So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it’s tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and compae their performances. Training the models is typically a long process as is testing.</p>
+<div id="422db88c" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -287,7 +287,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -345,10 +345,10 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <div id="fig-week2ViolinMulti" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week2ViolinMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelsComaprisonViolin.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
+<img src="figures/week2/modelsComparisonViolin.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week2ViolinMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Violin plot of precited tumbling rates vs.&nbsp;true tumbling rates.
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates. Models trained on all tumbling rates at varying numbers of snapshots output for training.
 </figcaption>
 </figure>
 </div>
@@ -357,10 +357,10 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <div id="fig-week2LineMulti" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week2LineMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelsComaprisonLine.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
+<img src="figures/week2/modelsComparisonLine.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week2LineMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rates.
+(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rates. Models trained on all tumbling rates at varying numbers of snapshots output for training.
 </figcaption>
 </figure>
 </div>
@@ -371,10 +371,10 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <div id="fig-week2ScatterMulti" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week2ScatterMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week2/modelsComaprisonScatter.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
+<img src="figures/week2/modelsComparisonScatter.png" class="img-fluid figure-img" data-ref-parent="fig-datasetSizeComparison">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week2ScatterMulti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates. Models trained on all tumbling rates at varying numbers of snapshots output for training.
 </figcaption>
 </figure>
 </div>
@@ -386,13 +386,13 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 </figcaption>
 </figure>
 </div>
-<p>The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. <a href="#fig-week2LineMulti" class="quarto-xref">Figure&nbsp;8 (b)</a> is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision comapred to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.</p>
+<p>The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. <a href="#fig-week2LineMulti" class="quarto-xref">Figure&nbsp;8 (b)</a> is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision compaed to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.</p>
 </section>
 <section id="week-3" class="level2">
 <h2 class="anchored" data-anchor-id="week-3">Week 3</h2>
-<p>After the results of last week some further testing is taken. Firstly we can look at the kernals of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e.&nbsp;extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.</p>
-<p>To start on kernal analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernals to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernals in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in <a href="#fig-week3Violin250" class="quarto-xref">Figure&nbsp;9 (a)</a>, <a href="#fig-week3Line250" class="quarto-xref">Figure&nbsp;9 (b)</a> and <a href="#fig-week3Scatter250" class="quarto-xref">Figure&nbsp;9 (c)</a>. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.</p>
-<div id="33100582" class="cell" data-execution_count="4">
+<p>After the results of last week some further testing is taken. Firstly we can look at the kernels of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e.&nbsp;extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.</p>
+<p>To start on kernel analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernels to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernels in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in <a href="#fig-week3Violin250" class="quarto-xref">Figure&nbsp;9 (a)</a>, <a href="#fig-week3Line250" class="quarto-xref">Figure&nbsp;9 (b)</a> and <a href="#fig-week3Scatter250" class="quarto-xref">Figure&nbsp;9 (c)</a>. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.</p>
+<div id="ef8a56d0" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Old Model</span></span>
@@ -475,7 +475,7 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 <img src="figures/week3/architectureComparisonViolin250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Violin250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rate.
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rate. Model 1 is old architecture, model 2 the new, slower one.
 </figcaption>
 </figure>
 </div>
@@ -484,10 +484,10 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 <div id="fig-week3Line250" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week3Line250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/architectureComaprisonLine250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
+<img src="figures/week3/architectureComparisonLine250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Line250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate.
+(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rate. Model 1 is old architecture, model 2 the new, slower one.
 </figcaption>
 </figure>
 </div>
@@ -498,10 +498,10 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 <div id="fig-week3Scatter250" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week3Scatter250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/architectureComaprisonScatter250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
+<img src="figures/week3/architectureComparisonScatter250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison250">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Scatter250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.
 </figcaption>
 </figure>
 </div>
@@ -509,7 +509,7 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-architectureComparison250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
+Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kernels and model 2 with 5x5 kernels, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
 </figcaption>
 </figure>
 </div>
@@ -526,7 +526,7 @@ Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kerna
 <img src="figures/week3/architectureComparisonViolin1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Violin1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates.
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.
 </figcaption>
 </figure>
 </div>
@@ -535,10 +535,10 @@ Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kerna
 <div id="fig-week3Line1250" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week3Line1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/architectureComaprisonLine1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
+<img src="figures/week3/architectureComparisonLine1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Line1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rates.
+(b) Line plot of mean predicted tumbling rate vs.&nbsp;true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.
 </figcaption>
 </figure>
 </div>
@@ -549,10 +549,10 @@ Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kerna
 <div id="fig-week3Scatter1250" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-week3Scatter1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/architectureComaprisonScatter1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
+<img src="figures/week3/architectureComparisonScatter1250.png" class="img-fluid figure-img" data-ref-parent="fig-architectureComparison1250">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3Scatter1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates.
+(c) Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.
 </figcaption>
 </figure>
 </div>
@@ -560,208 +560,208 @@ Figure&nbsp;9: Plots comparing two network architectures, model 1 with 3x3 kerna
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-architectureComparison1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
+Figure&nbsp;10: Plots comparing two network architectures, model 1 with 3x3 kernels and model 2 with 5x5 kernels, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
 </figcaption>
 </figure>
 </div>
 <hr>
-<p>Due to the timing issues, we continue with the plan of comapring kernals. For a simple analysis we look at the first layer of each model and output all of it’s kernals and compare for the different models based on differing sizes of dataset.</p>
-<div id="fig-kernalAnalysisInitial" class="quarto-layout-panel">
+<p>Due to the timing issues, we continue with the plan of comparing kernels. For a simple analysis we look at the first layer of each model and output all of it’s kernels and compare for the different models based on differing sizes of dataset.</p>
+<div id="fig-kernelAnalysisInitial" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-kernalAnalysisInitial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="fig-kernelAnalysisInitial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data250kernal0" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data250kernel0" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data250kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/250Filter0Kernal0.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data250kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/250Filter0kernel0.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data250kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) 250 snapshots trained model, kernal [0,0]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data250kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) 250 snapshots trained model, kernel [0,0]
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data250kernal1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data250kernel1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data250kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/250Filter0Kernal1.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data250kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/250Filter0kernel1.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data250kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) 250 snapshots trained model, kernal [0,1]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data250kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) 250 snapshots trained model, kernel [0,1]
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data250kernal2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data250kernel2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data250kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/250Filter0Kernal2.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data250kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/250Filter0kernel2.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data250kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c) 250 snapshots trained model, kernal [0,2]
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data500kernal0" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data500kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/500Filter0Kernal0.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data500kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(d) 500 snapshots trained model, kernal [0,0]
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data500kernal1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data500kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/500Filter0Kernal1.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data500kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(e) 500 snapshots trained model, kernal [0,1]
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data500kernal2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data500kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/500Filter0Kernal2.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data500kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(f) 500 snapshots trained model, kernal [0,2]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data250kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) 250 snapshots trained model, kernel [0,2]
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data750kernal0" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data500kernel0" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data750kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/750Filter0Kernal0.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data500kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/500Filter0kernel0.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data750kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(g) 750 snapshots trained model, kernal [0,0]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data500kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) 500 snapshots trained model, kernel [0,0]
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data750kernal1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data500kernel1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data750kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/750Filter0Kernal1.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data500kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/500Filter0kernel1.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data750kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(h) 750 snapshots trained model, kernal [0,1]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data500kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) 500 snapshots trained model, kernel [0,1]
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data750kernal2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data500kernel2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data750kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/750Filter0Kernal2.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data500kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/500Filter0kernel2.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data750kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(i) 750 snapshots trained model, kernal [0,2]
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data1000kernal0" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data1000kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/1000Filter0Kernal0.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1000kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(j) 1000 snapshots trained model, kernal [0,0]
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data1000kernal1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data1000kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/1000Filter0Kernal1.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1000kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(k) 1000 snapshots trained model, kernal [0,1]
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data1000kernal2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data1000kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/1000Filter0Kernal2.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1000kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(l) 1000 snapshots trained model, kernal [0,2]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data500kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(f) 500 snapshots trained model, kernel [0,2]
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data1250kernal0" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data750kernel0" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data1250kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/1250Filter0Kernal0.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data750kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/750Filter0kernel0.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1250kernal0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(m) 1250 snapshots trained model, kernal [0,0]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data750kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(g) 750 snapshots trained model, kernel [0,0]
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data1250kernal1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data750kernel1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data1250kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/1250Filter0Kernal1.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data750kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/750Filter0kernel1.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1250kernal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(n) 1250 snapshots trained model, kernal [0,1]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data750kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(h) 750 snapshots trained model, kernel [0,1]
 </figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernalAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div id="fig-week3data1250kernal2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data750kernel2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-week3data1250kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/week3/1250Filter0Kernal2.png" class="img-fluid figure-img" data-ref-parent="fig-kernalAnalysisInitial">
+<div aria-describedby="fig-week3data750kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/750Filter0kernel2.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1250kernal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(o) 1250 snapshots trained model, kernal [0,2]
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data750kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(i) 750 snapshots trained model, kernel [0,2]
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data1000kernel0" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3data1000kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/1000Filter0kernel0.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1000kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(j) 1000 snapshots trained model, kernel [0,0]
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data1000kernel1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3data1000kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/1000Filter0kernel1.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1000kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(k) 1000 snapshots trained model, kernel [0,1]
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data1000kernel2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3data1000kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/1000Filter0kernel2.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1000kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(l) 1000 snapshots trained model, kernel [0,2]
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data1250kernel0" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3data1250kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/1250Filter0kernel0.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1250kernel0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(m) 1250 snapshots trained model, kernel [0,0]
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data1250kernel1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3data1250kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/1250Filter0kernel1.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1250kernel1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(n) 1250 snapshots trained model, kernel [0,1]
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-kernelAnalysisInitial" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-week3data1250kernel2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week3data1250kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week3/1250Filter0kernel2.png" class="img-fluid figure-img" data-ref-parent="fig-kernelAnalysisInitial">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week3data1250kernel2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(o) 1250 snapshots trained model, kernel [0,2]
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kernalAnalysisInitial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Comparison of the first layer of kernals for each model trained on different amounts of data.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kernelAnalysisInitial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Comparison of the first layer of kernels for each model trained on different amounts of data.
 </figcaption>
 </figure>
 </div>
@@ -920,7 +920,7 @@ Figure&nbsp;14: Plots comparing how the size of a dataset affects the model, mod
 <hr>
 <section id="repeated-models" class="level4">
 <h4 class="anchored" data-anchor-id="repeated-models">Repeated Models</h4>
-<p>Here I will run the same simulation of 1000 snapshots with density 0.1 as has been used throughout this study and train a model on each 4 of these repetitions. I can then comapre their performances to compare to previous and future uses to use as a basis of how important the clustering of the simulation is or if the significance of chosen parameters is what gives rise to differences in model performance.</p>
+<p>Here I will run the same simulation of 1000 snapshots with density 0.1 as has been used throughout this study and train a model on each 4 of these repetitions. I can then compae their performances to compare to previous and future uses to use as a basis of how important the clustering of the simulation is or if the significance of chosen parameters is what gives rise to differences in model performance.</p>
 <div id="fig-repeatedModel" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-repeatedModel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">

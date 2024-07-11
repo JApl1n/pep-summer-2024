@@ -32,11 +32,11 @@ model1.summary()
 The models are then both tested on the whole dataset, rather naively the same one which despite a test train split may be overfitted giving falsely high accuracies. This was done through 10 epochs of the whole dataset taking roughly 45 seonds per epoch on my machine (M1 mac mini, no GPU access). I created the notebook dataset_comparison.ipynb to test two models and compare them graphically to see how they differ. Model 1 is trained on just the even indexed datsets, model2 on the entire dataset. The next three plots show the same data in different formats, so here I want to choose which one best represents the data at scale while maintaining a view opf the accuracy. @fig-week1Line effectively shows that model 1 has trained well to predicted data at low tumbling rates and interpolated well around that region but becomes less precise at higher values, whereas model 2 generalised better but this is to be expected as it was given more data. It also showed why the previous pair who worked on this chose to limit the tumbling rate to 0.5 as it seems the precision is lost aroudn this vlaue. However this could be just because there less data around here due to the logarithmic scale used.
 
 
-![Violin plot of precited tumbling rates vs. true tumbling rate.](figures/week1/comparison1.png){#fig-week1Violin}
+![Violin plot of predicted tumbling rates vs. true tumbling rate. Blue model is trained on a dataset made up of the evenly indexed tumbling rates and the orange model from both the evenly and odd tumbling rates.](figures/week1/comparison1.png){#fig-week1Violin}
 
-![Line plot of mean predicted tumbling rate vs. true tumbling rate.](figures/week1/comparison2.png){#fig-week1Line}
+![Line plot of mean predicted tumbling rate vs. true tumbling rate. Blue model is trained on a dataset made up of the evenly indexed tumbling rates and the orange model from both the evenly and odd tumbling rates.](figures/week1/comparison2.png){#fig-week1Line}
 
-![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week1/comparison3.png){#fig-week1Scatter}
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates. Blue model is trained on a dataset made up of the evenly indexed tumbling rates and the orange model from both the evenly and odd tumbling rates.](figures/week1/comparison3.png){#fig-week1Scatter}
 
 
 ## Week 2
@@ -47,11 +47,11 @@ Model 1 is trained on the first half of the data (0.016. 0.023, 0.034, 0.05 & 0.
 
 @fig-week2Line largely supports this and shows model 2 seems to have an optimal prediction actually outside the its training data at 0.073. 
 
-![Violin plot of precited tumbling rates vs. true tumbling rate.](figures/week2/modelComaprison1.png){#fig-week2Violin}
+![Violin plot of predicted tumbling rates vs. true tumbling rate. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.](figures/week2/modelComparison1.png){#fig-week2Violin}
 
-![Line plot of mean predicted tumbling rate vs. true tumbling rate.](figures/week2/modelComaprison2.png){#fig-week2Line}
+![Line plot of mean predicted tumbling rate vs. true tumbling rate. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.](figures/week2/modelComparison2.png){#fig-week2Line}
 
-![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week2/modelComaprison3.png){#fig-week2Scatter}
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.](figures/week2/modelComparison3.png){#fig-week2Scatter}
 
 Before starting the next part of training models on differing amounts of data, its worth looking at the code for generating the datasets in sampler.py. The important parts here are (altered here but gives useful information):
 
@@ -69,7 +69,7 @@ for iteration in range(iters):
 
 ```
 
-So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it's tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and comapre their performances. Training the models is typically a long process as is testing.
+So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it's tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and compae their performances. Training the models is typically a long process as is testing.
 
 ```{python}
 import pandas as pd
@@ -90,23 +90,23 @@ Here are the resulting graphs.
 
 ::: {#fig-datasetSizeComparison layout-ncol=2}
 
-![Violin plot of precited tumbling rates vs. true tumbling rates.](figures/week2/modelsComaprisonViolin.png){#fig-week2ViolinMulti}
+![Violin plot of predicted tumbling rates vs. true tumbling rates. Models trained on all tumbling rates at varying numbers of snapshots output for training.](figures/week2/modelsComparisonViolin.png){#fig-week2ViolinMulti}
 
-![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week2/modelsComaprisonLine.png){#fig-week2LineMulti}
+![Line plot of mean predicted tumbling rate vs. true tumbling rates. Models trained on all tumbling rates at varying numbers of snapshots output for training.](figures/week2/modelsComparisonLine.png){#fig-week2LineMulti}
 
-![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week2/modelsComaprisonScatter.png){#fig-week2ScatterMulti}
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates. Models trained on all tumbling rates at varying numbers of snapshots output for training.](figures/week2/modelsComparisonScatter.png){#fig-week2ScatterMulti}
 
 Plots comparing 5 models trained on 5 dataset sizes, model 1 being 250 snapshots, 2 500, 3 750, 4 1000 and 5 1250.
 :::
 
 
-The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. @fig-week2LineMulti is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision comapred to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.
+The main important things to mention here are model4 uses the 1000 snapshots used so far until this run, which is the cyan set. All models are then tested on the same dataset of 1000 snapshots, however this is a different run completely to the data used to train model4. @fig-week2LineMulti is the most useful graph here and shows an interesting result that the dataset with only 500 snapshots, model 2, has the highest precision compaed to accuracy for all tumbling rates (except for 0.05) until around 0.1 where it quickly becomes least accurate (except 0.34). This could be because the clustering that occurs in this se is similar to the testing set so the model is uniquely capable of predicting this data.
 
 ## Week 3
 
-After the results of last week some further testing is taken. Firstly we can look at the kernals of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e. extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.
+After the results of last week some further testing is taken. Firstly we can look at the kernels of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e. extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.
 
-To start on kernal analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernals to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernals in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in @fig-week3Violin250, @fig-week3Line250 and @fig-week3Scatter250. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.
+To start on kernel analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernels to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernels in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in @fig-week3Violin250, @fig-week3Line250 and @fig-week3Scatter250. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.
 
 ```{python}
 
@@ -182,13 +182,13 @@ def make_net_2(shape):
 
 ::: {#fig-architectureComparison250 layout-ncol=2}
 
-![Violin plot of predicted tumbling rates vs. true tumbling rate.](figures/week3/architectureComparisonViolin250.png){#fig-week3Violin250}
+![Violin plot of predicted tumbling rates vs. true tumbling rate. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonViolin250.png){#fig-week3Violin250}
 
-![Line plot of mean predicted tumbling rate vs. true tumbling rate.](figures/week3/architectureComaprisonLine250.png){#fig-week3Line250}
+![Line plot of mean predicted tumbling rate vs. true tumbling rate. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonLine250.png){#fig-week3Line250}
 
-![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComaprisonScatter250.png){#fig-week3Scatter250}
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonScatter250.png){#fig-week3Scatter250}
 
-Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
+Plots comparing two network architectures, model 1 with 3x3 kernels and model 2 with 5x5 kernels, also shown in code snippet above. Model 1 took 75 seconds and model 2 took 228 seconds to train.
 :::
 
 ---
@@ -197,52 +197,52 @@ And now for the comparisons of the architecture for larger amounts of data.
 
 ::: {#fig-architectureComparison1250 layout-ncol=2}
 
-![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComparisonViolin1250.png){#fig-week3Violin1250}
+![Violin plot of predicted tumbling rates vs. true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonViolin1250.png){#fig-week3Violin1250}
 
-![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/architectureComaprisonLine1250.png){#fig-week3Line1250}
+![Line plot of mean predicted tumbling rate vs. true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonLine1250.png){#fig-week3Line1250}
 
-![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week3/architectureComaprisonScatter1250.png){#fig-week3Scatter1250}
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonScatter1250.png){#fig-week3Scatter1250}
 
-Plots comparing two network architectures, model 1 with 3x3 kernals and model 2 with 5x5 kernals, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
+Plots comparing two network architectures, model 1 with 3x3 kernels and model 2 with 5x5 kernels, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
 :::
 
 ---
 
-Due to the timing issues, we continue with the plan of comapring kernals. For a simple analysis we look at the first layer of each model and output all of it's kernals and compare for the different models based on differing sizes of dataset.
+Due to the timing issues, we continue with the plan of comparing kernels. For a simple analysis we look at the first layer of each model and output all of it's kernels and compare for the different models based on differing sizes of dataset.
 
-::: {#fig-kernalAnalysisInitial layout-ncol=3}
+::: {#fig-kernelAnalysisInitial layout-ncol=3}
 
-![250 snapshots trained model, kernal [0,0]](figures/week3/250Filter0Kernal0.png){#fig-week3data250kernal0}
+![250 snapshots trained model, kernel [0,0]](figures/week3/250Filter0kernel0.png){#fig-week3data250kernel0}
 
-![250 snapshots trained model, kernal [0,1]](figures/week3/250Filter0Kernal1.png){#fig-week3data250kernal1}
+![250 snapshots trained model, kernel [0,1]](figures/week3/250Filter0kernel1.png){#fig-week3data250kernel1}
 
-![250 snapshots trained model, kernal [0,2]](figures/week3/250Filter0Kernal2.png){#fig-week3data250kernal2}
+![250 snapshots trained model, kernel [0,2]](figures/week3/250Filter0kernel2.png){#fig-week3data250kernel2}
 
-![500 snapshots trained model, kernal [0,0]](figures/week3/500Filter0Kernal0.png){#fig-week3data500kernal0}
+![500 snapshots trained model, kernel [0,0]](figures/week3/500Filter0kernel0.png){#fig-week3data500kernel0}
 
-![500 snapshots trained model, kernal [0,1]](figures/week3/500Filter0Kernal1.png){#fig-week3data500kernal1}
+![500 snapshots trained model, kernel [0,1]](figures/week3/500Filter0kernel1.png){#fig-week3data500kernel1}
 
-![500 snapshots trained model, kernal [0,2]](figures/week3/500Filter0Kernal2.png){#fig-week3data500kernal2}
+![500 snapshots trained model, kernel [0,2]](figures/week3/500Filter0kernel2.png){#fig-week3data500kernel2}
 
-![750 snapshots trained model, kernal [0,0]](figures/week3/750Filter0Kernal0.png){#fig-week3data750kernal0}
+![750 snapshots trained model, kernel [0,0]](figures/week3/750Filter0kernel0.png){#fig-week3data750kernel0}
 
-![750 snapshots trained model, kernal [0,1]](figures/week3/750Filter0Kernal1.png){#fig-week3data750kernal1}
+![750 snapshots trained model, kernel [0,1]](figures/week3/750Filter0kernel1.png){#fig-week3data750kernel1}
 
-![750 snapshots trained model, kernal [0,2]](figures/week3/750Filter0Kernal2.png){#fig-week3data750kernal2}
+![750 snapshots trained model, kernel [0,2]](figures/week3/750Filter0kernel2.png){#fig-week3data750kernel2}
 
-![1000 snapshots trained model, kernal [0,0]](figures/week3/1000Filter0Kernal0.png){#fig-week3data1000kernal0}
+![1000 snapshots trained model, kernel [0,0]](figures/week3/1000Filter0kernel0.png){#fig-week3data1000kernel0}
 
-![1000 snapshots trained model, kernal [0,1]](figures/week3/1000Filter0Kernal1.png){#fig-week3data1000kernal1}
+![1000 snapshots trained model, kernel [0,1]](figures/week3/1000Filter0kernel1.png){#fig-week3data1000kernel1}
 
-![1000 snapshots trained model, kernal [0,2]](figures/week3/1000Filter0Kernal2.png){#fig-week3data1000kernal2}
+![1000 snapshots trained model, kernel [0,2]](figures/week3/1000Filter0kernel2.png){#fig-week3data1000kernel2}
 
-![1250 snapshots trained model, kernal [0,0]](figures/week3/1250Filter0Kernal0.png){#fig-week3data1250kernal0}
+![1250 snapshots trained model, kernel [0,0]](figures/week3/1250Filter0kernel0.png){#fig-week3data1250kernel0}
 
-![1250 snapshots trained model, kernal [0,1]](figures/week3/1250Filter0Kernal1.png){#fig-week3data1250kernal1}
+![1250 snapshots trained model, kernel [0,1]](figures/week3/1250Filter0kernel1.png){#fig-week3data1250kernel1}
 
-![1250 snapshots trained model, kernal [0,2]](figures/week3/1250Filter0Kernal2.png){#fig-week3data1250kernal2}
+![1250 snapshots trained model, kernel [0,2]](figures/week3/1250Filter0kernel2.png){#fig-week3data1250kernel2}
 
-Comparison of the first layer of kernals for each model trained on different amounts of data.
+Comparison of the first layer of kernels for each model trained on different amounts of data.
 :::
 
 ---
@@ -291,7 +291,7 @@ Plots comparing how the size of a dataset affects the model, model 1 is trained 
 ---
 
 #### Repeated Models
-Here I will run the same simulation of 1000 snapshots with density 0.1 as has been used throughout this study and train a model on each 4 of these repetitions. I can then comapre their performances to compare to previous and future uses to use as a basis of how important the clustering of the simulation is or if the significance of chosen parameters is what gives rise to differences in model performance.
+Here I will run the same simulation of 1000 snapshots with density 0.1 as has been used throughout this study and train a model on each 4 of these repetitions. I can then compae their performances to compare to previous and future uses to use as a basis of how important the clustering of the simulation is or if the significance of chosen parameters is what gives rise to differences in model performance.
 
 ::: {#fig-repeatedModel layout-ncol=2}
 
