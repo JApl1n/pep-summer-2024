@@ -204,6 +204,7 @@ And now for the comparisons of the architecture for larger amounts of data.
 ![Scatter plot of all predicted tumbling rates vs. true tumbling rates. Model 1 is old architecture, model 2 the new, slower one.](figures/week3/architectureComparisonScatter1250.png){#fig-week3Scatter1250}
 
 Plots comparing two network architectures, model 1 with 3x3 kernels and model 2 with 5x5 kernels, also shown in code snippet above. Model 1 took 9 minutes and model 2 took 45 minutes to train.
+:::
 
 Now to compare the models with extrapolation I repeat the method for week 2 but in three overarching steps. One where I remove the first 3 tumbling rates from the data, one where I remove the last three tumbling rates from the data and one where i remove a middle three datasets (0.05, 0.073, 0.107). This is repeated for all datasets as well. This took a while to generate the models but the only other important information here is that from this point on the test dataset will now be used in it's entirety instead of just a split. This is because that data is not being used for training so the whole data can be used for validation. This makes testing take a while longer.
 
@@ -262,7 +263,6 @@ Here I will run the same simulation of 1000 snapshots with density 0.1 as has be
 Plots comparing how 4 models based off 4 distinct simulations with the same parameters compare. Any variation can be attributed to how much the randomness of each simulation affects the prediction, including similarities to the test data.
 :::
 
----
 
 ## Week 4
 
@@ -270,3 +270,63 @@ Firstly I had some work carried over from week 3. This was to take the kernels g
 
 
 We also looked back over the work I did from last week on the performance on the network on predictions and noticed something strange about particularly @fig-week3ViolinUpper. Here the dataset with the lowest amount of training data did the best prediction but fitted to its trained tumbling rates worst, whereas the dataset with the most training data struggled to predict to lower tumbling rates. Two possible ways of investigating this will be carried out: sample the tumbling rates linearly instead of logarithmically and repeat the same steps and the second method is to see if the model is overfitting by looking at the loss of the training and seeing if the number of epochs is limiting the training of the larger dataset.
+
+Test loss comes from the following code:
+
+```{python}
+# print("Evaluate on test data:")
+# results = model.evaluate(x_val, y_val, batch_size=64, verbose=0)
+# print("Test loss:", results[0])
+# print("Test accuracy:", results[1])
+```
+
+Reminder, upper means the training data includes the upper 7 tumbling rates, lower the lower 7 tumbling rates and outer the outer 7 tumbling rates.
+
+
+```{python}
+colNames = ["Name", "Test Loss", "Final Epoch Loss", "Data Split (test:train)", "Time (s)"]
+
+data  = [["250 lower", "0.011396143585443497", "0.0140", "4500:20000", "40"], ["750 lower", "0.00855135265737772", "0.0109", "53500:0000", "210"], ["1250 lower", "0.007289157714694738", "0.0098", "102500:20000", "380"], ["250 upper", "0.14913895726203918", "0.0554", "4500:20000", "40"], ["750 upper", "0.06558762490749359", "0.0401", "53500:0000", "210"], ["1250 upper", "0.044244393706321716", "0.0433", "102500:20000", "380"]]
+
+df = pd.DataFrame(columns=colNames, data=data)
+df = df.set_index("Name")
+
+
+df.head(6)
+
+```
+
+Clearly there is some difference between not only the different data sizes but also for the tumbling rates chosen. I'll get advice on what to do about this and then hopefully have better adjusted models. For now I can edit the original code that generated the datasets to output some linearlly selected tumbling rates. The belief is that because the changes in evolution happen on an exponential scale there will be big jumps and plateaus between selected tumbling rates.
+
+Also just a note for myself, I still havent pushed the data sizes to extremes to break the model yet.
+
+---
+
+#### Linear tumbling rates
+
+Firstly data was trained on tumbling rates between the previously used values: 0.016 and 0.5 with 10 equally spaced tumbling rates between them. In @fig-linearOnExponential it's first tested on the original exponentially spaced tumbling rates, then in @fig-linearOnLinear they are then tested on also linearlly spaced tumbling rates data.
+
+::: {#fig-linearOnExponential layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week4/dataComparisonLinearOnExponentialViolin.png){#fig-week4LinearOnExponentialViolin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week4/dataComparisonLinearOnExponentialLine.png){#fig-week4LinearOnExponentialLine}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week4/dataComparisonLinearOnExponentialScatter.png){#fig-week4LinearOnExponentialScatter}
+
+Plots comparing how differently sized datasets from tumbling rates generated linearly rather than exponentially predict exponentially spaced test data.
+:::
+
+---
+
+::: {#fig-linearOnLinear layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates.](figures/week4/dataComparisonLinearOnLinearViolin.png){#fig-week4LinearOnLinearViolin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week4/dataComparisonLinearOnLinearLine.png){#fig-week4LinearOnLinearLine}
+
+![Scatter plot of all predicted tumbling rates vs. true tumbling rates.](figures/week4/dataComparisonLinearOnLinearScatter.png){#fig-week4LinearOnLinearScatter}
+
+Plots comparing how differently sized datasets from tumbling rates generated linearly rather than exponentially predict also linearly spaced test data.
+:::
+
