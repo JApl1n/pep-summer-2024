@@ -116,7 +116,7 @@ Figure&nbsp;1: Initial dataset
 <p>The neural network layers used by the previous authors is presumed to have been refine dover time for optimal results for their findings and can be left as is for now. It is found in the cp_network.py and cp_network_multi.py files. I used it to generate a model on firstly the even dataset then once the odd dataset had been generated as wellm, both of them for the second model. Due to the tumbling rates being generated logarithmically, the even dataset is generally made up of lower tumbling rates and when tested will have to interpolate the odd regions. As they can take a while to train and depend highly on the dat generated, their weights are saved for later use including here.</p>
 <section id="layers-of-models-used" class="level4">
 <h4 class="anchored" data-anchor-id="layers-of-models-used">Layers Of Models Used</h4>
-<div id="2a2ef1be" class="cell" data-execution_count="1">
+<div id="84e7cb6e" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
@@ -257,7 +257,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </figure>
 </div>
 <p>Before starting the next part of training models on differing amounts of data, its worth looking at the code for generating the datasets in sampler.py. The important parts here are (altered here but gives useful information):</p>
-<div id="2ef9339f" class="cell" data-execution_count="2">
+<div id="615e7a9c" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumble <span class="op">=</span> <span class="fl">0.5</span>  <span class="co">#example tumbling rate</span></span>
@@ -272,7 +272,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </details>
 </div>
 <p>So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it’s tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and compae their performances. Training the models is typically a long process as is testing.</p>
-<div id="422db88c" class="cell" data-execution_count="3">
+<div id="2ec72af6" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -392,7 +392,7 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 <h2 class="anchored" data-anchor-id="week-3">Week 3</h2>
 <p>After the results of last week some further testing is taken. Firstly we can look at the kernels of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e.&nbsp;extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.</p>
 <p>To start on kernel analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernels to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernels in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in <a href="#fig-week3Violin250" class="quarto-xref">Figure&nbsp;9 (a)</a>, <a href="#fig-week3Line250" class="quarto-xref">Figure&nbsp;9 (b)</a> and <a href="#fig-week3Scatter250" class="quarto-xref">Figure&nbsp;9 (c)</a>. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.</p>
-<div id="ef8a56d0" class="cell" data-execution_count="4">
+<div id="ac609f99" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Old Model</span></span>
