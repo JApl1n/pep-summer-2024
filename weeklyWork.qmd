@@ -330,3 +330,21 @@ Plots comparing how differently sized datasets from tumbling rates generated lin
 Plots comparing how differently sized datasets from tumbling rates generated linearly rather than exponentially predict also linearly spaced test data.
 :::
 
+
+---
+
+Here we now compare both models, one trained on linearlly spaced tumbling rates, the other exponentially. One diagram will compare both tested on linearlly spaced tumbling rates, the other on exponentially spaced tumbling rates.
+
+::: {#fig-linearOnLinear layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates. The models are both tested on linearlly spaced tumbling rates.](figures/week4/tumblingRatesComparisonLinearViolin.png){#fig-week4LinearSpacingTestViolin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates. The models are both tested on linearlly spaced tumbling rates.](figures/week4/tumblingRatesComparisonLinearLine.png){#fig-week4LinearSpacingTestLine}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates. The models are both tested on exponentially spaced tumbling rates.](figures/week4/tumblingRatesComparisonExponentialViolin.png){#fig-week4ExponentialSpacingTestViolin}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates. The models are both tested on exponentially spaced tumbling rates.](figures/week4/tumblingRatesComparisonExponentialLine.png){#fig-week4ExponentialSpacingTestLine}
+
+
+Plots comparing how a model trained on linearlly spaced tumbling rates compares to a model trained on exponentially spaced tumbling rates. These are both tested on linearly spaced tumbling rates then exponentially spaced tumbling rates.
+:::
