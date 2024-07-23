@@ -348,3 +348,28 @@ Here we now compare both models, one trained on linearlly spaced tumbling rates,
 
 Plots comparing how a model trained on linearlly spaced tumbling rates compares to a model trained on exponentially spaced tumbling rates. These are both tested on linearly spaced tumbling rates then exponentially spaced tumbling rates.
 :::
+
+---
+
+Here I will train models on siginifacntly smaller and larger amounts of data: 50, 100, 150 and 200 time steps as well as 1500 and 1750 then comapre them to previous values
+
+::: {#fig-dataExtremes layout-ncol=2}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates for high datasizes.](figures/week5/largeDatsizeComparisonLine.png){#fig-week5LargeDatasizeComparison}
+
+![Violin plot of mean predicted tumbling rate vs. true tumbling rates for low datasizes.](figures/week5/smallDatsizeComparisonViolin.png){#fig-week5smallDatasizeComparisonViolin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates for low datasizes.](figures/week5/smallDatsizeComparisonLine.png){#fig-week5smallDatasizeComparisonLine}
+
+Plots comparing how models trained at different extremes perform. The ;arger datasets performed similarly to the other high datasets as expected however the smaller one sgave much less significant changes than expected so further testing will be performed. A possible reason for this is I gave too many epochs to achieve similar losses so the next two models will also share the same 20 epochs as used for 50 & 100 snapshots.
+:::
+
+::: {#fig-dataExtremesLower layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates for extra small datasizes.](figures/week5/extraSmallDatsizeComparisonViolin.png){#fig-week5extraSmallDatasizeComparisonViolin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates for extra small datasizes.](figures/week5/extraSmallDatsizeComparisonLine.png){#fig-week5extraSmallDatasizeComparisonLine}
+
+Plots comparing how models trained at extremely low data inputs perform. Here we have the expected result of the lowest training size having by far the worst performance. The value used is 10 which theoretically only output 10 snapshots which if thats the case shows that the model clearly doesnt need much data to get a good model (250 for example).
+:::
+
