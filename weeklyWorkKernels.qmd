@@ -205,3 +205,51 @@ plt.colorbar()
 plt.matshow(normalised_filters['scharr_h'], cmap='binary')
 plt.colorbar()
 ```
+
+## Week 6
+
+Kernal analysis has been a bit abandonded but we now have similar work after attempting to create an autoencoder. We want to go through each step of the model and understand what the model is seeing so i will do each step of the model one at a time, inspect the kernels and an example input image compared to it's output. For speed we will use the 500 images set to train the model each time, but with reduced layers it should be faster anyway. With on eof these sets we have 6000 training samples and 1000 test samples. The first breakdown will just look at the first layer:
+
+```{python}
+def make_model(shape):
+    model = Sequential()
+
+    model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same', strides=(3,3), activation='relu', input_shape=shape))
+    model.add(BatchNormalization())
+    return model
+```
+
+Because the validation set is simply the tumbling rate, a single value and we are outputting larger images we cant train the model, but we can see what the layers are calculating and hence cannot train the model and therefore look at kernels. The results of this are in 
+
+::: {#fig-modelBreakdown1 layout-ncol=2}
+
+![Example input image.](figures/week6/inputImage.png){#fig-week6InputImage}
+
+![Prediction of example image.](figures/week6/firstLayer.png){#fig-week6FirstLayer}
+
+:::
+
+The input shape of an image was 128,128,1 and the ouput here is 43,43,3. This means for each pixel there are now 3 values which when plotted are interpreted as an RGB value. Hence, the red pixels are high in the first value, green high in the second value and blue high in the third. The brighter, the higher this value. 
+
+Now we add another layer as follows:
+
+```{python}
+def make_model(shape):
+    model = Sequential()
+
+    model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same', strides=(3,3), activation='relu', input_shape=shape))
+    model.add(BatchNormalization())
+    model.add(Conv2D(filters=3, kernel_size=(3,3), padding='same'))
+    model.add(BatchNormalization())
+    return model
+```
+
+::: {#fig-modelBreakdown2 layout-ncol=2}
+
+![Example input image.](figures/week6/inputImage.png){#fig-week6InputImage}
+
+![Prediction of example image.](figures/week6/secondLayer.png){#fig-week6SecondLayer}
+
+:::
+
+This can be done to further layers but becomes a lot of white noise. The reason for htis is that these two layers are actually also basically just random as they are untrained predictions, so not actually 'seeing' anything, but it is at least performing their operations randomly on the input image.

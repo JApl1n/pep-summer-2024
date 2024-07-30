@@ -296,6 +296,10 @@ df.head(6)
 
 ```
 
+
+## Week 5
+
+
 Clearly there is some difference between not only the different data sizes but also for the tumbling rates chosen. I'll get advice on what to do about this and then hopefully have better adjusted models. For now I can edit the original code that generated the datasets to output some linearlly selected tumbling rates. The belief is that because the changes in evolution happen on an exponential scale there will be big jumps and plateaus between selected tumbling rates.
 
 Also just a note for myself, I still havent pushed the data sizes to extremes to break the model yet.
@@ -370,6 +374,59 @@ Plots comparing how models trained at different extremes perform. The ;arger dat
 
 ![Line plot of mean predicted tumbling rate vs. true tumbling rates for extra small datasizes.](figures/week5/extraSmallDatsizeComparisonLine.png){#fig-week5extraSmallDatasizeComparisonLine}
 
-Plots comparing how models trained at extremely low data inputs perform. Here we have the expected result of the lowest training size having by far the worst performance. The value used is 10 which theoretically only output 10 snapshots which if thats the case shows that the model clearly doesnt need much data to get a good model (250 for example).
+Plots comparing how models trained at extremely low data inputs perform. Here we have the expected result of the lowest training size having by far the worst performance. The value used is 10 which theoretically only output 10 snapshots which if thats the case shows that the model clearly doesnt need much data to get a good model (250 for example)|
 :::
 
+## Week 6
+
+For the final week the plan is to go voer a couple things missed from the previous week, switch the autoencoder idea and write a summary of work done. Firstly, I haven't covered the week 5 work much here as not much progress was made in the desired direction with the autoencoder. The model used here shrinks a 128x128 image to a single value, so the idea of using the single value to then decode wont result in much information at the end result. To make up for this I tried removing layers from the encoder to retain more information and try to decode them which also didnt have much success, so in week 6 we will see what outputs of a reduced encoder would look like. Additionally with the shape of the input iamge and pooling of 3x3 grids, the upscaling doesnt allow to match the same size as data without further layers to not mirror the encoder.
+
+First things done was to produce a learning curve image comparing how the different data sizes reduce their loss through evolving epochs. This was done to see if more epochs could be beneficial for some data sizes. Their results are shown in @fig-fig-week6LearningCurves. The final loss isnt expected to be related to the size of the training data however it could be argued that 250 iterations should be given additional epochs to reach a lower loss.
+
+---
+#### Learning curves
+
+![Learning curve of different datasizes with the same tumbling rates (logspace).](figures/week6/learningCurves.png){#fig-week6LearningCurves}
+
+Next we want to follow up on last week's work by creating a smaller model and looking at how the different predictions work with different model complexities to try and understand the model more. For this reaso, it links too closely to kernal analysis to be included here and will be in the kernal analysis weekly work file.
+
+Finally, one piece of information was realised far too late into this project and this was completely my fault for not seeing it for so long. Whenever I loaded data I saw large sizes beyond what i expected. For example 10 tumbling rates with 250 snapshots output should have resulted in 2500 output images, however gave 14 times this amount, which is because rolling is in the default code where the image shifted 14 times to see if the model can learn from this random shifting. This makes a stronger model by giving more data, making it learn that the position of clusters doesnt matter and also adding noise to the data.
+
+Now I generate datasets for 250,500,750,1000 adn 1250 output frames without the rolling and train models the same way with only 10 epochs. Doing this gave the following epochs:
+
+![Learning curve of different datasizes with the same tumbling rates (logspace). The data used to trian these has no rolling.](figures/week6/noRollingLearningCurves.png){#fig-week6NoRollingLearningCurves}
+
+Its clear from this figure that the loss is alrger than that of the rolling datasets and will take many more epochs to reach a similar loss. I will keep the mdoels trained with these losses. Below I compare a model trained on rolling data vs. on data without the rolls. 
+
+---
+#### No rolling trained model vs. rolling trained model
+
+::: {#fig-rollingVsNoRolling layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates for a model trained on data with and without rolling. Tested on data with rolling.](figures/week6/rollingVsNoRollingTestedRollViolin.png){#fig-week6RollingVsNoRollingRollTestViolin}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates for a model trained on data with and without rolling. Tested on data with rolling.](figures/week6/rollingVsNoRollingTestedRollLine.png){#fig-week6RollingVsNoRollingRollTestLine}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates for a model trained on data with and without rolling. Tested on data without rolling.](figures/week6/rollingVsNoRollingTestedNoRollViolin.png){#fig-week6RollingVsNoRollingNoRollTestViolin}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates for a model trained on data with and without rolling. Tested on data without rolling.](figures/week6/rollingVsNoRollingTestedNoRollLine.png){#fig-week6RollingVsNoRollingNoRollTestLine}
+
+Plots comparing how models trained on data with rolling comapre to models trained on data without rolling. The same number of output frames are used but the rolling data has 14 extra rolls for each frame. On all figures it's clear that the model trained on data with the rolls performs better, especially at higher tumbling rates. Given the tumbles ar enot new information, just shifted copies of the original data, it's valid to say these are very helpful to generate.
+:::
+
+---
+#### No rolling trained models datasize comparison
+
+Now we can see how changing the size of samples taken affects the accuracy of this. These are tested on rolling data as no signigfcant difference was found between the two in @fig-rollingVsNoRolling but gives more data which may be helpful.
+
+::: {#fig-noRollingComparisons layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates for models trained on data without rolling of different sizes. Tested on data with rolling.](figures/week6/noRollComparisonsViolin.png){#fig-week6NoRollComparisonsViolin}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates for models trained on data without rolling of different sizes. Tested on data with rolling.](figures/week6/noRollComparisonsLine.png){#fig-week6NoRollComparisonsLine}
+
+![Scatter plot of predicted tumbling rates vs. true tumbling rates for models trained on data without rolling of different sizes. Tested on data with rolling.](figures/week6/noRollComparisonsScatter.png){#fig-week6NoRollComparisonsScatter}
+
+
+Plots comparing how models trained on data without rolling of different sizes can predict test data with rolling. The violin plot is especially very 'ideal' where the datasizes are clearly separated with distinct collections, some having no overlap at all.
+:::

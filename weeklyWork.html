@@ -116,7 +116,7 @@ Figure&nbsp;1: Initial dataset
 <p>The neural network layers used by the previous authors is presumed to have been refine dover time for optimal results for their findings and can be left as is for now. It is found in the cp_network.py and cp_network_multi.py files. I used it to generate a model on firstly the even dataset then once the odd dataset had been generated as wellm, both of them for the second model. Due to the tumbling rates being generated logarithmically, the even dataset is generally made up of lower tumbling rates and when tested will have to interpolate the odd regions. As they can take a while to train and depend highly on the dat generated, their weights are saved for later use including here.</p>
 <section id="layers-of-models-used" class="level4">
 <h4 class="anchored" data-anchor-id="layers-of-models-used">Layers Of Models Used</h4>
-<div id="89d2baa6" class="cell" data-execution_count="1">
+<div id="e668c508" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
@@ -257,7 +257,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </figure>
 </div>
 <p>Before starting the next part of training models on differing amounts of data, its worth looking at the code for generating the datasets in sampler.py. The important parts here are (altered here but gives useful information):</p>
-<div id="22058a41" class="cell" data-execution_count="2">
+<div id="dc886168" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumble <span class="op">=</span> <span class="fl">0.5</span>  <span class="co">#example tumbling rate</span></span>
@@ -272,7 +272,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 </details>
 </div>
 <p>So it will output 1000 snapshots no matter the tumbling rate. However, as mentioned in their report, the characteristic evolution of a particle goes with the inverse of it’s tumbling rate (on average a particle with tumbling probability 0.1 will move in the same direction for 10 time steps). Hence this method allows the system to evolve to a similar level and only output 1000 time frames despite varying length of simulation. Here we generate datasets with a desnity of 0.1 with 250, 500, 750, 1000 and 1250 time steps and compae their performances. Training the models is typically a long process as is testing.</p>
-<div id="bf7c2c4c" class="cell" data-execution_count="3">
+<div id="3dced52a" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -287,7 +287,7 @@ Figure&nbsp;7: Scatter plot of all predicted tumbling rates vs.&nbsp;true tumbli
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -392,7 +392,7 @@ Figure&nbsp;8: Plots comparing 5 models trained on 5 dataset sizes, model 1 bein
 <h2 class="anchored" data-anchor-id="week-3">Week 3</h2>
 <p>After the results of last week some further testing is taken. Firstly we can look at the kernels of the models to compare how they are visually and then if there are patterns that are found, they can be explored. The result that a model trained on less data can be more accurate than one with seemingly signifcantly more is unexpected so will be built on. For this we will try running a simulation with the same parameters multiple times to see if there is a significant difference between the models. The key reason is likely that the test data has patterns closest to the model with less data hence why it was a good predictor, so we can expand this by using different test data and see if the same model is still most accurate. Another things to test is to see if the model is still a good predictor for data its not trained on i.e.&nbsp;extrapolate again. Finally another thing we want to see is more extreme data to see if the model can be broken orbe made siginificantly better at predicting.</p>
 <p>To start on kernel analysis is simple as we have the models saved. However when trying to see if I could change the size of the kernels to display more information than just a 3x3 grid, I found anothe rmodel using 5x5 kernels in the code. It seemed like it could have been used by the previus group possibly more so I re-trained on the 250 snapshots data. This took 228 seconds, compared to 75 seconds with the other model. The results can be seen in <a href="#fig-week3Violin250" class="quarto-xref">Figure&nbsp;9 (a)</a>, <a href="#fig-week3Line250" class="quarto-xref">Figure&nbsp;9 (b)</a> and <a href="#fig-week3Scatter250" class="quarto-xref">Figure&nbsp;9 (c)</a>. The lack in difference in results prompted me to do the same for 1250 snapshots, where the training took 555 seconds before, now takes close to three quarters of an hour. The results of testing are shown in but due to the time increase, the original model will be continued to be used predominantly.</p>
-<div id="fbcdeca1" class="cell" data-execution_count="4">
+<div id="09aa6ab2" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Old Model</span></span>
@@ -775,7 +775,7 @@ Figure&nbsp;14: Plots comparing how 4 models based off 4 distinct simulations wi
 <p>Firstly I had some work carried over from week 3. This was to take the kernels generated by the neural network and compare their shape to a set of filter matrices that are used in image processing to see if the machine learning had naturally replicated them. This is carried out in edge_filters.ipynb. A few changes are made but we can see how close each kernel is to each filter and sort them by this closeness with normalised magnitudes. Additionally, the kernel analysis will be moved across to another file as it is a distinct study compared to the model performance here.</p>
 <p>We also looked back over the work I did from last week on the performance on the network on predictions and noticed something strange about particularly <a href="#fig-week3ViolinUpper" class="quarto-xref">Figure&nbsp;12 (a)</a>. Here the dataset with the lowest amount of training data did the best prediction but fitted to its trained tumbling rates worst, whereas the dataset with the most training data struggled to predict to lower tumbling rates. Two possible ways of investigating this will be carried out: sample the tumbling rates linearly instead of logarithmically and repeat the same steps and the second method is to see if the model is overfitting by looking at the loss of the training and seeing if the number of epochs is limiting the training of the larger dataset.</p>
 <p>Test loss comes from the following code:</p>
-<div id="dd145674" class="cell" data-execution_count="5">
+<div id="b39cb131" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Evaluate on test data:")</span></span>
@@ -785,7 +785,7 @@ Figure&nbsp;14: Plots comparing how 4 models based off 4 distinct simulations wi
 </details>
 </div>
 <p>Reminder, upper means the training data includes the upper 7 tumbling rates, lower the lower 7 tumbling rates and outer the outer 7 tumbling rates.</p>
-<div id="76136f97" class="cell" data-execution_count="6">
+<div id="2b9792a1" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>colNames <span class="op">=</span> [<span class="st">"Name"</span>, <span class="st">"Test Loss"</span>, <span class="st">"Final Epoch Loss"</span>, <span class="st">"Data Split (test:train)"</span>, <span class="st">"Time (s)"</span>]</span>
@@ -798,7 +798,7 @@ Figure&nbsp;14: Plots comparing how 4 models based off 4 distinct simulations wi
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 
 
@@ -868,6 +868,9 @@ Figure&nbsp;14: Plots comparing how 4 models based off 4 distinct simulations wi
 </div>
 </div>
 </div>
+</section>
+<section id="week-5" class="level2">
+<h2 class="anchored" data-anchor-id="week-5">Week 5</h2>
 <p>Clearly there is some difference between not only the different data sizes but also for the tumbling rates chosen. I’ll get advice on what to do about this and then hopefully have better adjusted models. For now I can edit the original code that generated the datasets to output some linearlly selected tumbling rates. The belief is that because the changes in evolution happen on an exponential scale there will be big jumps and plateaus between selected tumbling rates.</p>
 <p>Also just a note for myself, I still havent pushed the data sizes to extremes to break the model yet.</p>
 <hr>
@@ -1118,7 +1121,159 @@ Figure&nbsp;18: Plots comparing how models trained at different extremes perform
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dataExtremesLower-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19: Plots comparing how models trained at extremely low data inputs perform. Here we have the expected result of the lowest training size having by far the worst performance. The value used is 10 which theoretically only output 10 snapshots which if thats the case shows that the model clearly doesnt need much data to get a good model (250 for example).
+Figure&nbsp;19: Plots comparing how models trained at extremely low data inputs perform. Here we have the expected result of the lowest training size having by far the worst performance. The value used is 10 which theoretically only output 10 snapshots which if thats the case shows that the model clearly doesnt need much data to get a good model (250 for example)|
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="week-6" class="level2">
+<h2 class="anchored" data-anchor-id="week-6">Week 6</h2>
+<p>For the final week the plan is to go voer a couple things missed from the previous week, switch the autoencoder idea and write a summary of work done. Firstly, I haven’t covered the week 5 work much here as not much progress was made in the desired direction with the autoencoder. The model used here shrinks a 128x128 image to a single value, so the idea of using the single value to then decode wont result in much information at the end result. To make up for this I tried removing layers from the encoder to retain more information and try to decode them which also didnt have much success, so in week 6 we will see what outputs of a reduced encoder would look like. Additionally with the shape of the input iamge and pooling of 3x3 grids, the upscaling doesnt allow to match the same size as data without further layers to not mirror the encoder.</p>
+<p>First things done was to produce a learning curve image comparing how the different data sizes reduce their loss through evolving epochs. This was done to see if more epochs could be beneficial for some data sizes. Their results are shown in <strong>?@fig-fig-week6LearningCurves</strong>. The final loss isnt expected to be related to the size of the training data however it could be argued that 250 iterations should be given additional epochs to reach a lower loss.</p>
+<hr>
+<section id="learning-curves" class="level4">
+<h4 class="anchored" data-anchor-id="learning-curves">Learning curves</h4>
+<div id="fig-week6LearningCurves" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-week6LearningCurves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/learningCurves.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week6LearningCurves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Learning curve of different datasizes with the same tumbling rates (logspace).
+</figcaption>
+</figure>
+</div>
+<p>Next we want to follow up on last week’s work by creating a smaller model and looking at how the different predictions work with different model complexities to try and understand the model more. For this reaso, it links too closely to kernal analysis to be included here and will be in the kernal analysis weekly work file.</p>
+<p>Finally, one piece of information was realised far too late into this project and this was completely my fault for not seeing it for so long. Whenever I loaded data I saw large sizes beyond what i expected. For example 10 tumbling rates with 250 snapshots output should have resulted in 2500 output images, however gave 14 times this amount, which is because rolling is in the default code where the image shifted 14 times to see if the model can learn from this random shifting. This makes a stronger model by giving more data, making it learn that the position of clusters doesnt matter and also adding noise to the data.</p>
+<p>Now I generate datasets for 250,500,750,1000 adn 1250 output frames without the rolling and train models the same way with only 10 epochs. Doing this gave the following epochs:</p>
+<div id="fig-week6NoRollingLearningCurves" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-week6NoRollingLearningCurves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/noRollingLearningCurves.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-week6NoRollingLearningCurves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21: Learning curve of different datasizes with the same tumbling rates (logspace). The data used to trian these has no rolling.
+</figcaption>
+</figure>
+</div>
+<p>Its clear from this figure that the loss is alrger than that of the rolling datasets and will take many more epochs to reach a similar loss. I will keep the mdoels trained with these losses. Below I compare a model trained on rolling data vs.&nbsp;on data without the rolls.</p>
+<hr>
+</section>
+<section id="no-rolling-trained-model-vs.-rolling-trained-model" class="level4">
+<h4 class="anchored" data-anchor-id="no-rolling-trained-model-vs.-rolling-trained-model">No rolling trained model vs.&nbsp;rolling trained model</h4>
+<div id="fig-rollingVsNoRolling" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rollingVsNoRolling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rollingVsNoRolling" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6RollingVsNoRollingRollTestViolin" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6RollingVsNoRollingRollTestViolin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/rollingVsNoRollingTestedRollViolin.png" class="img-fluid figure-img" data-ref-parent="fig-rollingVsNoRolling">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6RollingVsNoRollingRollTestViolin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates for a model trained on data with and without rolling. Tested on data with rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rollingVsNoRolling" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6RollingVsNoRollingRollTestLine" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6RollingVsNoRollingRollTestLine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/rollingVsNoRollingTestedRollLine.png" class="img-fluid figure-img" data-ref-parent="fig-rollingVsNoRolling">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6RollingVsNoRollingRollTestLine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Line plot of predicted tumbling rates vs.&nbsp;true tumbling rates for a model trained on data with and without rolling. Tested on data with rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rollingVsNoRolling" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6RollingVsNoRollingNoRollTestViolin" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6RollingVsNoRollingNoRollTestViolin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/rollingVsNoRollingTestedNoRollViolin.png" class="img-fluid figure-img" data-ref-parent="fig-rollingVsNoRolling">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6RollingVsNoRollingNoRollTestViolin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates for a model trained on data with and without rolling. Tested on data without rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rollingVsNoRolling" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6RollingVsNoRollingNoRollTestLine" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6RollingVsNoRollingNoRollTestLine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/rollingVsNoRollingTestedNoRollLine.png" class="img-fluid figure-img" data-ref-parent="fig-rollingVsNoRolling">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6RollingVsNoRollingNoRollTestLine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Line plot of predicted tumbling rates vs.&nbsp;true tumbling rates for a model trained on data with and without rolling. Tested on data without rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rollingVsNoRolling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;22: Plots comparing how models trained on data with rolling comapre to models trained on data without rolling. The same number of output frames are used but the rolling data has 14 extra rolls for each frame. On all figures it’s clear that the model trained on data with the rolls performs better, especially at higher tumbling rates. Given the tumbles ar enot new information, just shifted copies of the original data, it’s valid to say these are very helpful to generate.
+</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="no-rolling-trained-models-datasize-comparison" class="level4">
+<h4 class="anchored" data-anchor-id="no-rolling-trained-models-datasize-comparison">No rolling trained models datasize comparison</h4>
+<p>Now we can see how changing the size of samples taken affects the accuracy of this. These are tested on rolling data as no signigfcant difference was found between the two in <a href="#fig-rollingVsNoRolling" class="quarto-xref">Figure&nbsp;22</a> but gives more data which may be helpful.</p>
+<div id="fig-noRollingComparisons" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-noRollingComparisons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-noRollingComparisons" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6NoRollComparisonsViolin" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6NoRollComparisonsViolin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/noRollComparisonsViolin.png" class="img-fluid figure-img" data-ref-parent="fig-noRollingComparisons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6NoRollComparisonsViolin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Violin plot of predicted tumbling rates vs.&nbsp;true tumbling rates for models trained on data without rolling of different sizes. Tested on data with rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-noRollingComparisons" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6NoRollComparisonsLine" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6NoRollComparisonsLine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/noRollComparisonsLine.png" class="img-fluid figure-img" data-ref-parent="fig-noRollingComparisons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6NoRollComparisonsLine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Line plot of predicted tumbling rates vs.&nbsp;true tumbling rates for models trained on data without rolling of different sizes. Tested on data with rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-noRollingComparisons" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-week6NoRollComparisonsScatter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-week6NoRollComparisonsScatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/week6/noRollComparisonsScatter.png" class="img-fluid figure-img" data-ref-parent="fig-noRollingComparisons">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-week6NoRollComparisonsScatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Scatter plot of predicted tumbling rates vs.&nbsp;true tumbling rates for models trained on data without rolling of different sizes. Tested on data with rolling.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-noRollingComparisons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;23: Plots comparing how models trained on data without rolling of different sizes can predict test data with rolling. The violin plot is especially very ‘ideal’ where the datasizes are clearly separated with distinct collections, some having no overlap at all.
 </figcaption>
 </figure>
 </div>
