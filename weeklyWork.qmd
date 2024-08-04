@@ -381,12 +381,14 @@ Plots comparing how models trained at extremely low data inputs perform. Here we
 
 For the final week the plan is to go voer a couple things missed from the previous week, switch the autoencoder idea and write a summary of work done. Firstly, I haven't covered the week 5 work much here as not much progress was made in the desired direction with the autoencoder. The model used here shrinks a 128x128 image to a single value, so the idea of using the single value to then decode wont result in much information at the end result. To make up for this I tried removing layers from the encoder to retain more information and try to decode them which also didnt have much success, so in week 6 we will see what outputs of a reduced encoder would look like. Additionally with the shape of the input iamge and pooling of 3x3 grids, the upscaling doesnt allow to match the same size as data without further layers to not mirror the encoder.
 
-First things done was to produce a learning curve image comparing how the different data sizes reduce their loss through evolving epochs. This was done to see if more epochs could be beneficial for some data sizes. Their results are shown in @fig-fig-week6LearningCurves. The final loss isnt expected to be related to the size of the training data however it could be argued that 250 iterations should be given additional epochs to reach a lower loss.
+First things done was to produce a learning curve image comparing how the different data sizes reduce their loss through evolving epochs. This was done to see if more epochs could be beneficial for some data sizes. Their results are shown in @fig-week6LearningCurves. The final loss isnt expected to be related to the size of the training data however it could be argued that 250 iterations should be given additional epochs to reach a lower loss.
 
 ---
 #### Learning curves
 
 ![Learning curve of different datasizes with the same tumbling rates (logspace).](figures/week6/learningCurves.png){#fig-week6LearningCurves}
+
+![Validation learning curve of different datasizes with the same tumbling rates (logspace).](figures/week6/rollingValidationLearningCurves.png){#fig-week6RollingValidationLearningCurves}
 
 Next we want to follow up on last week's work by creating a smaller model and looking at how the different predictions work with different model complexities to try and understand the model more. For this reaso, it links too closely to kernal analysis to be included here and will be in the kernal analysis weekly work file.
 
@@ -396,7 +398,9 @@ Now I generate datasets for 250,500,750,1000 adn 1250 output frames without the 
 
 ![Learning curve of different datasizes with the same tumbling rates (logspace). The data used to trian these has no rolling.](figures/week6/noRollingLearningCurves.png){#fig-week6NoRollingLearningCurves}
 
-Its clear from this figure that the loss is alrger than that of the rolling datasets and will take many more epochs to reach a similar loss. I will keep the mdoels trained with these losses. Below I compare a model trained on rolling data vs. on data without the rolls. 
+![Validation learning curve of different datasizes with the same tumbling rates (logspace). The data used to trian these has no rolling.](figures/week6/noRollingValidationLearningCurves.png){#fig-week6NoRollingValidationLearningCurves}
+
+Its clear from this figure that the loss is larger than that of the rolling datasets and will take many more epochs to reach a similar loss. I will keep the mdoels trained with these losses. Below I compare a model trained on rolling data vs. on data without the rolls. 
 
 ---
 #### No rolling trained model vs. rolling trained model
@@ -430,3 +434,27 @@ Now we can see how changing the size of samples taken affects the accuracy of th
 
 Plots comparing how models trained on data without rolling of different sizes can predict test data with rolling. The violin plot is especially very 'ideal' where the datasizes are clearly separated with distinct collections, some having no overlap at all.
 :::
+
+#### Batch size and learning rate
+
+As the project comes to a close theres a few things to note that were kept the same throughout. Namely the model was not changed as well as the following pieces of code for trainign a model:
+
+```{python}
+# from tensorflow import keras
+
+# optimizer = keras.optimizers.Adam(learning_rate=0.001)
+# model.compile(loss='mean_absolute_error', optimizer=optimizer, metrics=['accuracy'])
+
+ 
+# history = model.fit(
+#     x_train,
+#     y_train,
+#     epochs=10,
+#     verbose=True,
+#     batch_size=64,
+#     validation_data=(x_val, y_val)
+# )
+
+```
+
+So the optimiser was always from a set one called Adam with learning rate 0.001, the loss was always mean absolute error, epochs always 10 (except for a few times I mentioned I changed it) and a batch size of 64, always. I used these as they were given by the previous two project members and not changing them gave the most fair comparisons from one test to the other. However if you wanted to find the most accurate network possible for the model then changing them is necessary.

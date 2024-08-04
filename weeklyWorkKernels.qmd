@@ -253,3 +253,75 @@ def make_model(shape):
 :::
 
 This can be done to further layers but becomes a lot of white noise. The reason for htis is that these two layers are actually also basically just random as they are untrained predictions, so not actually 'seeing' anything, but it is at least performing their operations randomly on the input image.
+
+--- 
+
+After that failed attempt we have new ideas. Firstly we can compare kernels of a model trained on rolling to one with no rolling. There may be that the no rolling version looks for different patterns. Eaily we cna simply comapre if the kernels are closer to the filters by plotting their difference scores:
+
+
+::: {#fig-kernelFilterDifferences layout-ncol=2}
+
+![Model trained on rolling data's kernels compared to known filters. The lower the y axis value, the closer they are to each other.](figures/week6/rollingKernelDifferences.png){#fig-week6KernelFilterComparisonRolling}
+
+![Model trained on non rolling data's kernels compared to known filters. The lower the y axis value, the closer they are to each other.](figures/week6/noRollingKernelDifferences.png){#fig-week6KernelFilterComparisonNoRolling}
+
+:::
+
+The filters that match the rolling data closest are show below:
+
+::: {#fig-kernelFilterDifferences layout-ncol=2}
+
+![Model trained on rolling data's kernel matrices that match known filters best.](figures/week6/rollingDataClosestFilters.png){#fig-week6KernelFiltersRolling}
+
+![Model trained on non rolling data's kernel matrices that match known filters best.](figures/week6/noRollingDataClosestFilters.png){#fig-week6KernelFiltersNoRolling}
+
+:::
+
+The mean differences for filters 0,1 and 2 respectively are 0.7356, 0.79468 and 0.81113 for rolling data and for non rolling the means are 0.85678, 0.7939 and 0.7509. So for rolling data trained model the first kernel was closest to filters and kernel 2 was closest for rolling data, hence why they are compared in @fig-kernelFilterDifferences. This shows that mostly the most important parts the kernels are looking at are similar between the rolling and no rolling data.
+
+::: {#fig-week6AllKernels layout-ncol=1}
+
+![Model trained on rolling data's kernel matrices.](figures/week6/rollingAll3Kernels.png){#fig-week6RollingAll3Kernels}
+
+![Model trained on non rolling data's kernel matrices.](figures/week6/noRollingAll3Kernels.png){#fig-week6NoRollingAll3Kernels}
+
+:::
+
+---
+
+Now we can move onto a method of looking at what the model outputs in intermediate layers from a enw method. Again, the output's shape are 43x43x3 so the image output will be made of 3 vlaues and interpreted as an RGB value, so the more red, the higher the importance of the first value and so on. Here are the rsults of an example frame that features some percolation with a true tumbling rate of 0.023 and predicted of 0.065.
+
+
+::: {#fig-modelBreakdown layout-ncol=2}
+
+![Image of input frame for trained model.](figures/week6/exampleInputFrame.png){#fig-week6ExampleInputFrame}
+
+![Image of output by first layer, the 2d convolution.](figures/week6/firstLayerOutput.png){#fig-week6FirstLayerFrame}
+
+![Image of output by second layer, the batch normalisation.](figures/week6/secondLayerOutput.png){#fig-week6SecondLayerFrame}
+
+![Image of output by third layer, the second 2d convolution.](figures/week6/thirdLayerOutput.png){#fig-week6ThirdLayerFrame}
+
+![Image of output by fourth layer, the second batch normalisation.](figures/week6/fourthLayerOutput.png){#fig-week6FourthLayerFrame}
+
+![Image of output by fifth layer, the max 2d pooling.](figures/week6/fifthLayerOutput.png){#fig-week6FifthLayerFrame}
+
+![Image of output by sixth layer, the average pooling 2d.](figures/week6/sixthLayerOutput.png){#fig-week6SizthLayerFrame}
+
+:::
+
+---
+
+After a talk I realised the image is each created by each filter, so we can compare the original image to the kernels and then their output:
+
+::: {#fig-modelBreakdownNew layout-ncol=1}
+
+![Image of input frame for trained model.](figures/week6/exampleInputFrameNew.png){#fig-week6ExampleInputFrameNew}
+
+![Image of output by first layer, the 2d convolution.](figures/week6/firstLayerOutputNew.png){#fig-week6FirstLayerFrameNew}
+
+![Image of output by third layer, the second 2d convolution.](figures/week6/thirdLayerOutputNew.png){#fig-week6ThirdLayerFrameNew}
+
+:::
+
+Here I've included less layers as the kernels that generate them ebcome less trivial as shown by @fig-week6ThirdLayerFrameNew where all three kernels that generate the output are used as before in an RGB result (i.e. there are 9 kernels in this layer).

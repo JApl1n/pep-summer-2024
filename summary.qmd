@@ -1,0 +1,59 @@
+---
+title: "6 Week Summary"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+### Aims
+
+From this work we aimed to understand the neural network design by Chris Paunica and Nhat Pham, built to predict the input tumbling rate of an active matter simulation constrained to two dimensions, called the persistent exclusion process. We wanted to try and understand what the network was 'seeing' which we did by using multiple techniques such as looking at the kernels that are generated for comparing neighbouring pixels. We also wanted to see how the data provided to the model changed how accurate the prediction was. An early focus was on if extrapolation was siginifcanlty harder for differently trained models. 
+
+::: {#fig-upperVsLowerExtrapolation layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rate. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.](figures/week2/modelComparison1.png){#fig-week2Violin}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rate. Blue model trained on first half of tumbling rates and orange trained on last half of tumbling rates data.](figures/week2/modelComparison2.png){#fig-week2Line}
+
+:::
+
+A key comparison for this is shown in @fig-upperVsLowerExtrapolation. As can be seen the model that is trained on the lower half of tumbling rates gives a very accurate prediction for lower tumbling rates and much worse for higher tumbling rates and vice versa for the model trained on higher tumbling rates. However one thing that can be seen is that the model doesnt fit very accurately for higher tumbling rates despite being trained on that data. The higher tumbling rates under inspection have less percolation (cluster formation) which is because the tumbling rate is so hight that evaporation (separation) of the clusters occurs. Another possible reason was due to the selection of tumbling rates. This was theorised by the previous two who worked on this, suggesting that the tumbling rates were chosen on a logarithmic scale because thats the scale that changes to the system occur, but the larger seprartion between tumbling rates at higher tumbling rates may be causing this less accurate learning.
+
+To test this we loaded data between the same two values at a linear spacing, trained a model on it then tested these on linearly separated tumbling rates as well as logarithmically. The results are shown in @fig-linearOnLinear.
+
+::: {#fig-linearOnLinear layout-ncol=2}
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates. The models are both tested on linearlly spaced tumbling rates.](figures/week4/tumblingRatesComparisonLinearLine.png){#fig-week4LinearSpacingTestLine}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates. The models are both tested on exponentially spaced tumbling rates.](figures/week4/tumblingRatesComparisonExponentialLine.png){#fig-week4ExponentialSpacingTestLine}
+
+:::
+
+The result from this one set of comparisons seems to be that the model trained on linearly spaced tumbling rates was a more accurate predictor than logarithmiclaly for larger tumbling rates suggesting the hypothesis may be partly true. Simulataneously the accuracy of the model for higher tumbling rates was still lower than for lower tumbling rates even without that data being part of the training. This suggests that the percolation of the image matters significantly to the model even if not trained much on data that is percolated.
+
+Going back to the exponentially spaced tumbling rates, we also did some extra extrapolation of different tumbling rate ranges with different sized data. The way that data was generated was based on the tumbling rate, the lower the tumbling rate, the less happens between frames so more frames are simulated bu the outputs are taken at a point where a similar amount of changes should have happened between outputs no matter the tumbling rate. We then can choose the number of frames to ouput with lengthens the simulation. All this means we can compare differently sized datasets and how the models they train change any results. This is used in @fig-week3LineUpper below.
+
+![Line plot of mean predicted tumbling rate vs. true tumbling rates.](figures/week3/dataComparisonUpperLine.png){#fig-week3LineUpper}
+
+Of a group of similar comparisons, this one has the most interesting result that the model that is given the smallest dataset is not only still a good predictor for lower tumbling rates, but also that the one with the most data is the worst predictor for this range. The probable reason for this is overfitting ot the higher tumbling rates.
+
+To look into that we can plot the learning curve of the model. This is shown in @fig-week6LearningCurves.
+
+![Learning curve of different datasizes with the same tumbling rates (logspace).](figures/week6/learningCurves.png){#fig-week6LearningCurves}
+
+As can be seen most of the learning occurs in the first epoch and flatlines quite quickly. This was not expected behaviour and the epochs took a long time to train so I looked inot the data and revealed there was tumbling still enabled in the code generation. This meant that for every output fram 13 more were generated of the same image just shifted slightly each time. The reason this was originally done was to generalise the model more and make it learn about the periodicity of the lattice. The simulation was re-run without the rolling and the following learning curves were produced:
+
+![Learning curve of different datasizes with the same tumbling rates (logspace). The data used to trian these has no rolling.](figures/week6/noRollingLearningCurves.png){#fig-week6NoRollingLearningCurves}
+
+Here the curve is much cloer to expected result and shows the model hasnt properly had enough epochs to learn, or some other information should be changed for them. Nevertheless both models techincally have the exact same data, one just has copies with some shifting, so comapring them is a good way of seeing if this cheap method of adding data to the set adds any useful information for the model.
+
+::: {#fig-rollingVsNoRolling layout-ncol=2}
+
+![Violin plot of predicted tumbling rates vs. true tumbling rates for a model trained on data with and without rolling. Tested on data with rolling.](figures/week6/rollingVsNoRollingTestedRollViolin.png){#fig-week6RollingVsNoRollingRollTestViolin}
+
+![Line plot of predicted tumbling rates vs. true tumbling rates for a model trained on data with and without rolling. Tested on data with rolling.](figures/week6/rollingVsNoRollingTestedRollLine.png){#fig-week6RollingVsNoRollingRollTestLine}
+
+:::
+
+Here is can be shown that the data with rolling generalises better for training the model.
